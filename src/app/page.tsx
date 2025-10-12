@@ -1,103 +1,182 @@
-import Image from "next/image";
+import HeroBadge from "@/components/hero-badge";
+import { GridPattern } from "@/components/patter-bg";
+import { cn } from "@/lib/utils";
 
 export default function Home() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className="w-screen relative flex text-8xl font-medium justify-center gap-x-28 pt-60">
+      <svg
+        className="h-full relative -top-0"
+        xmlns="http://www.w3.org/2000/svg"
+        width="70"
+        height="568"
+        viewBox="0 0 89 568"
+        fill="none"
+      >
+        <path
+          d="M1 0.23938V207.654L88 285.695C88 285.695 87.5 493.945 88 567.813"
+          stroke="url(#animation_gradient_left)"
+          strokeWidth="2"
+          opacity="1"
+        ></path>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+        <path
+          d="M1 0.23938V207.654L88 285.695C88 285.695 87.5 493.945 88 567.813"
+          stroke="url(#paint0_linear_left)"
+          strokeWidth="1.5"
+        ></path>
+
+        <defs>
+          {/* ANIMATED GRADIENT (traveling particle) */}
+          <linearGradient
+            id="animation_gradient_left"
+            x1="0"
+            y1="0"
+            x2="0"
+            y2="1"
+            gradientUnits="objectBoundingBox"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            <stop offset="0%" stopColor="white" stopOpacity="0">
+              <animate
+                attributeName="offset"
+                values="-0.2; 1.2"
+                dur="2.5s"
+                repeatCount="indefinite"
+              />
+            </stop>
+            <stop offset="10%" stopColor="white" stopOpacity="1">
+              <animate
+                attributeName="offset"
+                values="0; 1.4"
+                dur="2.5s"
+                repeatCount="indefinite"
+              />
+            </stop>
+            <stop offset="20%" stopColor="white" stopOpacity="0">
+              <animate
+                attributeName="offset"
+                values="0.2; 1.6"
+                dur="2.5s"
+                repeatCount="indefinite"
+              />
+            </stop>
+          </linearGradient>
+
+          {/* GREY STATIC BACK PATH */}
+          <linearGradient
+            id="paint0_linear_left"
+            x1="1"
+            y1="4.50012"
+            x2="1"
+            y2="568"
+            gradientUnits="userSpaceOnUse"
           >
-            Read our docs
-          </a>
+            <stop offset="0" stopColor="#6F6F6F" stopOpacity="0" />
+            <stop offset="0.1" stopColor="#6F6F6F" stopOpacity="0.3" />
+            <stop offset="0.8" stopColor="#6F6F6F" stopOpacity="1" />
+            <stop offset="1" stopColor="#6F6F6F" stopOpacity="0" />
+          </linearGradient>
+        </defs>
+      </svg>
+      <div className=" left-0 absolute top-10 flex size-full items-center justify-center overflow-hidden z-0 p-20 opacity-70">
+        <GridPattern
+          width={25}
+          height={25}
+          x={-1}
+          y={-1}
+          className={cn(
+            "[mask-image:radial-gradient(500px_200px_at_center,white,transparent)]"
+          )}
+        />
+      </div>
+      <div className="text-center text-shadow-lg/80 pt-10 z-10 flex flex-col">
+        <div className="flex flex-col mb-3">
+          <HeroBadge />
+          <div className="">Welcome to</div>
+          <div>AIC Recruitment Portal</div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
+        <div className="text-lg mb-5 font-medium text-neutral-400 max-w-xl mx-auto">
+          Join the our community and explore opportunities to learn, create, and
+          lead through innovation and collaboration.
+        </div>
+        <a className="mx-auto text-lg px-4 py-2 relative cursor-pointer hover:-translate-y-0.5 transition duration-200 inline-flex items-center justify-center border-[0.6px] border-solid [border-image-source:linear-gradient(180deg,#1F1F1F_0%,#858585_100%),linear-gradient(180deg,#1F1F1F_0%,#858585_100%)] [background:linear-gradient(0deg,#151515,#151515),linear-gradient(180deg,rgba(21,21,21,0)_66.3%,rgba(255,255,255,0.5)_100%),linear-gradient(183.22deg,rgba(255,255,255,0.5)_2.62%,rgba(21,21,21,0)_52.03%)] shadow-[inset_0px_6px_8px_0px_#FAFAFA40,inset_0px_-6px_8px_0px_#FAFAFA40,0px_0px_0px_0px_#FAFAFA40,0px_0px_0px_0px_#FAFAFA40] text-white 0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08), h-10 md:h-12 lg:h-16 w-32 md:w-40 lg:w-48 rounded-full  font-medium">
+          Apply Now
         </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </div>
+
+      <svg
+        className="relative -top-0 h-full"
+        xmlns="http://www.w3.org/2000/svg"
+        width="70"
+        height="568"
+        viewBox="0 0 89 568"
+        fill="none"
+      >
+        <path
+          d="M88 0.23938V207.654L1 285.695C1 285.695 1.5 493.945 1 567.813"
+          stroke="url(#animation_gradient_right)"
+          strokeWidth="2"
+          opacity="1"
+        ></path>
+
+        <path
+          d="M88 0.23938V207.654L1 285.695C1 285.695 1.5 493.945 1 567.813"
+          stroke="url(#paint0_linear_right)"
+          strokeWidth="1.5"
+        ></path>
+
+        <defs>
+          {/* ANIMATED GRADIENT (traveling particle) */}
+          <linearGradient
+            id="animation_gradient_right"
+            x1="0"
+            y1="0"
+            x2="0"
+            y2="1"
+            gradientUnits="objectBoundingBox"
+          >
+            <stop offset="0%" stopColor="white" stopOpacity="0">
+              <animate
+                attributeName="offset"
+                values="-0.2; 1.2"
+                dur="2.5s"
+                repeatCount="indefinite"
+              />
+            </stop>
+            <stop offset="10%" stopColor="white" stopOpacity="1">
+              <animate
+                attributeName="offset"
+                values="0; 1.4"
+                dur="2.5s"
+                repeatCount="indefinite"
+              />
+            </stop>
+            <stop offset="20%" stopColor="white" stopOpacity="0">
+              <animate
+                attributeName="offset"
+                values="0.2; 1.6"
+                dur="2.5s"
+                repeatCount="indefinite"
+              />
+            </stop>
+          </linearGradient>
+
+          {/* GREY STATIC BACK PATH */}
+          <linearGradient
+            id="paint0_linear_right"
+            x1="88"
+            y1="4.50012"
+            x2="88"
+            y2="568"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop offset="0" stopColor="#6F6F6F" stopOpacity="0" />
+            <stop offset="0.1" stopColor="#6F6F6F" stopOpacity="0.3" />
+            <stop offset="0.8" stopColor="#6F6F6F" stopOpacity="1" />
+            <stop offset="1" stopColor="#6F6F6F" stopOpacity="0" />
+          </linearGradient>
+        </defs>
+      </svg>
     </div>
   );
 }
