@@ -1,10 +1,11 @@
+import { ApplyNowButton } from "@/components/Buttons";
 import HeroBadge from "@/components/hero-badge";
 import { GridPattern } from "@/components/patter-bg";
 import { cn } from "@/lib/utils";
 
 export default function Home() {
   return (
-    <div className="w-screen relative flex text-8xl font-medium justify-center gap-x-28 pt-60">
+    <div className="w-screen  relative flex text-8xl font-medium justify-center gap-x-28 pt-60">
       <svg
         className="h-full relative -top-0"
         xmlns="http://www.w3.org/2000/svg"
@@ -95,13 +96,14 @@ export default function Home() {
           <div className="">Welcome to</div>
           <div>AIC Recruitment Portal</div>
         </div>
-        <div className="text-lg mb-5 font-medium text-neutral-400 max-w-xl mx-auto">
+        <div className="text-lg mb-10 font-medium text-neutral-400 max-w-xl mx-auto">
           Join the our community and explore opportunities to learn, create, and
           lead through innovation and collaboration.
         </div>
-        <a className="mx-auto text-lg px-4 py-2 relative cursor-pointer hover:-translate-y-0.5 transition duration-200 inline-flex items-center justify-center border-[0.6px] border-solid [border-image-source:linear-gradient(180deg,#1F1F1F_0%,#858585_100%),linear-gradient(180deg,#1F1F1F_0%,#858585_100%)] [background:linear-gradient(0deg,#151515,#151515),linear-gradient(180deg,rgba(21,21,21,0)_66.3%,rgba(255,255,255,0.5)_100%),linear-gradient(183.22deg,rgba(255,255,255,0.5)_2.62%,rgba(21,21,21,0)_52.03%)] shadow-[inset_0px_6px_8px_0px_#FAFAFA40,inset_0px_-6px_8px_0px_#FAFAFA40,0px_0px_0px_0px_#FAFAFA40,0px_0px_0px_0px_#FAFAFA40] text-white 0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08), h-10 md:h-12 lg:h-16 w-32 md:w-40 lg:w-48 rounded-full  font-medium">
+        {/* <a className="mx-auto text-lg px-4 py-2 relative cursor-pointer hover:-translate-y-0.5 transition duration-200 inline-flex items-center justify-center border-[0.6px] border-solid [border-image-source:linear-gradient(180deg,#1F1F1F_0%,#858585_100%),linear-gradient(180deg,#1F1F1F_0%,#858585_100%)] [background:linear-gradient(0deg,#151515,#151515),linear-gradient(180deg,rgba(21,21,21,0)_66.3%,rgba(255,255,255,0.5)_100%),linear-gradient(183.22deg,rgba(255,255,255,0.5)_2.62%,rgba(21,21,21,0)_52.03%)] shadow-[inset_0px_6px_8px_0px_#FAFAFA40,inset_0px_-6px_8px_0px_#FAFAFA40,0px_0px_0px_0px_#FAFAFA40,0px_0px_0px_0px_#FAFAFA40] text-white 0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08), h-10 md:h-12 lg:h-16 w-32 md:w-40 lg:w-48 rounded-full  font-medium">
           Apply Now
-        </a>
+        </a> */}
+        <ApplyNowButton title="Apply Now" />
       </div>
 
       <svg
