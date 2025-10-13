@@ -1,6 +1,8 @@
 "use client";
 
 import ApplicationConfirm from "@/components/ApplicationConfirmation";
+import { useContext } from "react";
+import { cursorHoverContext } from "@/app/context/cursor-context";
 import { CanvasRevealEffect } from "@/components/CanvasRevealEffect";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -27,6 +29,7 @@ type FormValues = {
 };
 
 export default function ApplyPage() {
+  const { setCursorHover } = useContext(cursorHoverContext);
   const STEPS = [
     "Student Information",
     "Choose Department",
@@ -124,7 +127,9 @@ export default function ApplyPage() {
   return (
     <div className="mt-10 max-w-6xl grow mb-10 w-full mx-auto border border-white/20  rounded-xl  flex ">
       <div className="flex flex-col py-5 w-2xs px-2 border-r-white/20 border-r">
-        <div className="text-xl mb-3 px-2 font-semibold">Recruitment Form</div>
+        <div className="text-xl mb-3 px-2 font-semibold pb-5 ">
+          Recruitment Form
+        </div>
         <div className=" space-y-1">
           {STEPS.map((step, index) => (
             <div
@@ -377,6 +382,8 @@ export default function ApplyPage() {
                 ? "neon-button cursor-pointer mb-1 mr-2"
                 : "border-neutral-200 text-neutral-200 cursor-not-allowed opacity-50"
             }`}
+              onMouseEnter={() => isFormComplete && setCursorHover(true)}
+              onMouseLeave={() => setCursorHover(false)}
             >
               Submit Application
             </button>
@@ -477,7 +484,7 @@ function TextArea({
   );
 }
 // Each department gets its own gradient color set
-const DEPT_COLORS: Record<string, number[][]> = {
+export const DEPT_COLORS: Record<string, number[][]> = {
   Operations: [
     [16, 185, 129], // emerald
     [110, 231, 183],
@@ -500,7 +507,7 @@ const DEPT_COLORS: Record<string, number[][]> = {
   ],
 };
 
-function DepartmentCard({
+export function DepartmentCard({
   title,
   idx,
   pref1,

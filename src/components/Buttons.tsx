@@ -1,6 +1,8 @@
 "use client";
 
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
+import { useContext } from "react";
+import { cursorHoverContext } from "@/app/context/cursor-context";
 import { useRouter } from "next/navigation";
 //if already has a session, skip the login page and go to apply page
 export default function LoginButton({
@@ -8,6 +10,7 @@ export default function LoginButton({
 }: {
   setSignInError: (signInError: string) => void;
 }) {
+  const { setCursorHover } = useContext(cursorHoverContext);
   const handleSignIn = async () => {
     try {
       const res = await signIn("google", {
@@ -31,6 +34,8 @@ export default function LoginButton({
   return (
     <button
       className="w-full flex items-center border-2 border-white/65 hover:border-white justify-center text-white py-2 mb-2 gap-x-2 text-sm font-semibold rounded-lg cursor-pointer transition-all duration-250 backdrop-blur-lg hover:backdrop-blur-none"
+      onMouseEnter={() => setCursorHover(true)}
+      onMouseLeave={() => setCursorHover(false)}
       onClick={() => handleSignIn()}
     >
       Login With Google
@@ -44,18 +49,33 @@ export default function LoginButton({
 //check bout session
 
 export function NeonButton({ title }: { title: string }) {
+  const { setCursorHover } = useContext(cursorHoverContext);
   return (
-    <button className="neon-button cursor-pointer mb-1 mr-2">{title}</button>
+    <button
+      className="neon-button cursor-pointer mb-1 mr-2"
+      onMouseEnter={() => setCursorHover(true)}
+      onMouseLeave={() => setCursorHover(false)}
+    >
+      {title}
+    </button>
   );
 }
 
 export function ApplyNowButton({ title }: { title: string }) {
   const router = useRouter();
+  const { status } = useSession();
+  const { setCursorHover } = useContext(cursorHoverContext);
   return (
     <button
       className="ApplyNowButton mx-auto"
+      onMouseEnter={() => setCursorHover(true)}
+      onMouseLeave={() => setCursorHover(false)}
       onClick={() => {
-        router.push("/auth/signin");
+        if (status == "authenticated") {
+          router.push("/apply");
+        } else {
+          router.push("/auth/signin");
+        }
       }}
     >
       <span>{title}</span>

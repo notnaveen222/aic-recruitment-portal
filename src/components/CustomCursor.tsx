@@ -1,0 +1,54 @@
+"use client";
+import { cursorHoverContext } from "@/app/context/cursor-context";
+import { useRef, useState, useEffect, useContext } from "react";
+
+export default function CustomCursor({
+  cursorVisible,
+}: {
+  cursorVisible: boolean;
+}) {
+  const { cursorHover } = useContext(cursorHoverContext);
+  const cursorRef = useRef<SVGSVGElement>(null);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  useEffect(() => {
+    // Event listener for mouse movement
+    const handleMouseMove = (e: MouseEvent) => {
+      setPosition({
+        x: e.clientX + 10,
+        y: e.clientY + 10,
+      });
+    };
+
+    // Event listener for mouseover (hover) on HTML elements
+
+    window.addEventListener("mousemove", handleMouseMove);
+    // Cleanup event listeners on component unmount
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, []); // useEffect runs only once on mount
+  return (
+    <svg
+      style={{ top: position.y, left: position.x }}
+      ref={cursorRef}
+      className={`${
+        cursorVisible ? "opacity-100" : "opacity-0"
+      } fixed pointer-events-none -translate-x-1/2 -translate-y-1/2 z-50 transition-[scale] duration-75 rounded-full h-6 w-6 invisible md:visible ${
+        cursorHover ? "scale-125" : "scale-100"
+      }`}
+      width="100%"
+      height="100%"
+      viewBox="0 0 24 24"
+      fill="#000000"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M20.5056 10.7754C21.1225 10.5355 21.431 10.4155 21.5176 10.2459C21.5926 10.099 21.5903 9.92446 21.5115 9.77954C21.4205 9.61226 21.109 9.50044 20.486 9.2768L4.59629 3.5728C4.0866 3.38983 3.83175 3.29835 3.66514 3.35605C3.52029 3.40621 3.40645 3.52004 3.35629 3.6649C3.29859 3.8315 3.39008 4.08635 3.57304 4.59605L9.277 20.4858C9.50064 21.1088 9.61246 21.4203 9.77973 21.5113C9.92465 21.5901 10.0991 21.5924 10.2461 21.5174C10.4157 21.4308 10.5356 21.1223 10.7756 20.5054L13.3724 13.8278C13.4194 13.707 13.4429 13.6466 13.4792 13.5957C13.5114 13.5506 13.5508 13.5112 13.5959 13.479C13.6468 13.4427 13.7072 13.4192 13.828 13.3722L20.5056 10.7754Z"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
