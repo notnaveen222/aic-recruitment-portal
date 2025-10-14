@@ -13,8 +13,10 @@ export const authOptions: AuthOptions = {
       const isValidEmail = user.email?.endsWith("@vitstudent.ac.in") ?? false;
       return isValidEmail;
     },
-    async redirect() {
-      return `http://localhost:3000/apply`;
+    async redirect({ url, baseUrl }) {
+      if (url.startsWith(baseUrl)) return url;
+      if (url.startsWith("/")) return `${baseUrl}${url}`;
+      return baseUrl;
     },
   },
   pages: {
