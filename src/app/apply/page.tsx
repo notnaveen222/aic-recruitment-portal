@@ -69,9 +69,9 @@ export default function ApplyPage() {
     mode: "onChange",
   });
 
-  // useEffect(() => {
-  //   if (session?.user?.email) setValue("email", session.user.email);
-  // }, [session?.user?.email, setValue]);
+  useEffect(() => {
+    if (session?.user?.email) setValue("email", session.user.email);
+  }, [session?.user?.email, setValue]);
 
   const onSubmit = async (values: FormValues) => {
     setConfirmationVisible(true);
