@@ -1,6 +1,5 @@
 export { default } from "next-auth/middleware";
 
-// Specify which routes require authentication
 export const config = {
-  matcher: ["/apply"],
+  matcher: ["/apply/:path*"], // protect /apply and all subpaths
 };
