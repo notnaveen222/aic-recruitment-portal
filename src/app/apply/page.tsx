@@ -1,8 +1,6 @@
 "use client";
 
 import ApplicationConfirm from "@/components/ApplicationConfirmation";
-import { useContext } from "react";
-import { cursorHoverContext } from "@/app/context/cursor-context";
 import { CanvasRevealEffect } from "@/components/CanvasRevealEffect";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -29,7 +27,6 @@ type FormValues = {
 };
 
 export default function ApplyPage() {
-  const { setCursorHover } = useContext(cursorHoverContext);
   const STEPS = [
     "Student Information",
     "Choose Department",
@@ -382,8 +379,6 @@ export default function ApplyPage() {
                 ? "neon-button cursor-pointer mb-1 mr-2"
                 : "border-neutral-200 text-neutral-200 cursor-not-allowed opacity-50"
             }`}
-              onMouseEnter={() => isFormComplete && setCursorHover(true)}
-              onMouseLeave={() => setCursorHover(false)}
             >
               Submit Application
             </button>

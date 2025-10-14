@@ -2,13 +2,10 @@
 
 import { signOut, useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
-import { useContext } from "react";
-import { cursorHoverContext } from "@/app/context/cursor-context";
 export default function Navbar() {
   const router = useRouter();
   const pathName = usePathname();
   const { status } = useSession();
-  const { setCursorHover } = useContext(cursorHoverContext);
   return (
     <div className="top-0 sticky h-14 w-full flex items-center justify-between px-24">
       <div className="font-medium text-base" onClick={() => router.push("/")}>
@@ -17,8 +14,6 @@ export default function Navbar() {
       {pathName != "/apply" ? (
         <button
           className=" font-medium text-base"
-          onMouseEnter={() => setCursorHover(true)}
-          onMouseLeave={() => setCursorHover(false)}
           onClick={() => {
             if (status == "authenticated") {
               router.push("/apply");
@@ -32,8 +27,6 @@ export default function Navbar() {
       ) : (
         <button
           className="cursor-pointer font-medium text-base"
-          onMouseEnter={() => setCursorHover(true)}
-          onMouseLeave={() => setCursorHover(false)}
           onClick={() => {
             signOut();
             router.push("/auth/signin");

@@ -27,15 +27,6 @@ body {
   font-family: var(--font-inter), Arial, Helvetica, sans-serif;
 }
 
-/* Hide the default cursor on medium screens and up since we show a custom cursor */
-@media (min-width: 768px) {
-  html,
-  body,
-  * {
-    cursor: none !important;
-  }
-}
-
 *::selection {
   color: black;
   background: white;
