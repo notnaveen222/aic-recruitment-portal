@@ -1,5 +1,17 @@
-export { default } from "next-auth/middleware";
+import { withAuth } from "next-auth/middleware";
+import { NextResponse } from "next/server";
+
+export default withAuth(
+  function middleware(req) {
+    return NextResponse.next();
+  },
+  {
+    pages: {
+      signIn: "/auth/signin",
+    },
+  }
+);
 
 export const config = {
-  matcher: ["/apply/:path*"], // protect /apply and all subpaths
+  matcher: ["/((?!api|_next|auth).*)"], // exclude /api, /_next, and /auth
 };
