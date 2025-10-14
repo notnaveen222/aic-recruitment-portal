@@ -7,26 +7,26 @@ export default function ApplicationConfirm({
 }) {
   return (
     visible && (
-      <div className=" absolute top-20 bottom-10 inset-x-10 border-neutral-400/60 rounded-2xl border backdrop-blur-sm flex justify-center items-center">
+      <div className="absolute top-18 sm:top-20 bottom-5 sm:bottom-10 inset-x-5 sm:inset-x-10 border-neutral-400/60 rounded-2xl border backdrop-blur-sm flex text-2xl font-semibold justify-center items-center text-center">
         {status == "loading" && (
-          <div className="text-2xl fade-loop font-semibold">
+          <div className="fade-loop ">
             Submitting Your Application, Hold Tight!
           </div>
         )}
         {status == "confirmed" && (
-          <div className="text-2xl  font-semibold">
+          <div className="">
             Your Application Submitted Successfully! We&apos;ll get back to you
             soon!
           </div>
         )}{" "}
         {status == "existing" && (
-          <div className="text-2xl  font-semibold">
+          <div className="">
             You have already submitted the application, We&apos;ll Get back to
             you shortly!
           </div>
         )}
         {status == "error" && (
-          <div className="text-2xl font-semibold">
+          <div className="">
             There was an error submitting your response, Please Try Again Later
           </div>
         )}

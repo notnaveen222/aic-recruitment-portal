@@ -69,9 +69,9 @@ export default function ApplyPage() {
     mode: "onChange",
   });
 
-  useEffect(() => {
-    if (session?.user?.email) setValue("email", session.user.email);
-  }, [session?.user?.email, setValue]);
+  // useEffect(() => {
+  //   if (session?.user?.email) setValue("email", session.user.email);
+  // }, [session?.user?.email, setValue]);
 
   const onSubmit = async (values: FormValues) => {
     setConfirmationVisible(true);
@@ -122,8 +122,8 @@ export default function ApplyPage() {
     "" | "loading" | "confirmed" | "error" | "existing"
   >("");
   return (
-    <div className="mt-10 max-w-6xl grow mb-10 w-full mx-auto border border-white/20  rounded-xl  flex ">
-      <div className="flex flex-col py-5 w-2xs px-2 border-r-white/20 border-r">
+    <div className="mt-10 max-w-xs sm:max-w-6xl grow mb-10 w-full mx-auto border border-white/20  rounded-xl  flex ">
+      <div className="hidden sm:flex flex-col py-5 w-2xs px-2 border-r-white/20 border-r">
         <div className="text-xl mb-3 px-2 font-semibold pb-5 ">
           Recruitment Form
         </div>
@@ -145,13 +145,13 @@ export default function ApplyPage() {
           ))}
         </div>
       </div>
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col  w-full">
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col w-full">
         {currentStep == 0 && (
-          <div className="grow pt-5 flex flex-col justify-center items-center pl-5">
-            <div className="font-bold text-3xl mb-1">
+          <div className="grow pt-5 flex flex-col justify-center items-center px-0 sm:pl-5">
+            <div className="font-bold text-2xl sm:text-3xl mb-1">
               Tell us about yourself
             </div>
-            <div className="text-neutral-400 mb-5">
+            <div className="text-neutral-400 text-sm sm:text-base mb-5">
               Make sure these details are correct.
             </div>
             <div className="flex flex-col space-y-5">
@@ -194,12 +194,12 @@ export default function ApplyPage() {
           </div>
         )}
         {currentStep == 1 && (
-          <div className="grow pt-5 flex flex-col justify-center items-center pl-5">
-            <div className="font-bold text-3xl mb-5">
+          <div className="grow pt-5 flex flex-col justify-center items-center px-0 sm:pl-5">
+            <div className="font-bold text-2xl sm:text-3xl mb-5 text-center">
               Select the department you&apos;re applying for
             </div>
             <div className="text-neutral-400 mb-4">Preference 1</div>
-            <div className="flex space-x-2 space-y-2 justify-center flex-wrap ">
+            <div className="flex space-x-2 space-y-2 justify-center flex-wrap mb-5">
               {DEPT.map((dept, idx) => (
                 <div
                   onClick={() => {
@@ -239,11 +239,11 @@ export default function ApplyPage() {
           </div>
         )}
         {currentStep == 2 && (
-          <div className="grow  pt-12 flex flex-col justify-center items-center pl-5">
-            <div className="font-bold text-3xl mb-1">
+          <div className="grow  pt-12 flex flex-col justify-center items-center px-0 sm:pl-5">
+            <div className="font-bold text-xl text-center sm:text-3xl mb-1">
               Tell us about why you wanna join us
             </div>
-            <div className="text-neutral-400 mb-7">
+            <div className="text-neutral-400 text-sm sm:text-base mb-7">
               Make sure these details are correct.
             </div>
             <div className="flex flex-col space-y-2">
@@ -291,39 +291,54 @@ export default function ApplyPage() {
           </div>
         )}
         {currentStep == 3 && (
-          <div className="grow  pt-12 flex flex-col justify-center items-center pl-5">
-            <div className="font-bold text-3xl mb-1">
+          <div className="grow pt-12 flex flex-col justify-center items-center px-0 sm:pl-5">
+            <div className="font-bold text-2xl text-center sm:text-3xl mb-1">
               Kindly double check your details
             </div>
-            <div className="text-neutral-400 mb-7">
+            <div className="text-neutral-400 mb-7 text-sm sm:text-base text-center">
               Make sure these details are correct.
             </div>
-            <div className="flex max-w-[480px] flex-col w-full  space-y-2">
-              <DisabledInput label="Name" value={watch("name") || ""} />
-              <DisabledInput
-                label="Register Number"
-                value={watch("registerNumber") || ""}
-              />
-              <DisabledInput
-                label="Phone Number"
-                value={watch("phone") || ""}
-              />
-              <DisabledInput
-                label="Email"
-                value={watch("email") || ""}
-                placeholder="Fetching your email"
-              />
-              <DisabledInput
-                label="Department Preference 1"
-                value={watch("preference1") || ""}
-              />
-              <DisabledInput
-                label="Department Preference 2"
-                value={watch("preference2") || ""}
-              />
+
+            {/* ✅ container fixed like Step 0 */}
+            <div className="flex flex-col items-center space-y-5 mb-5">
+              <div className="w-full max-w-sm sm:min-w-[300px]">
+                <DisabledInput label="Name" value={watch("name") || ""} />
+              </div>
+              <div className="w-full max-w-sm sm:min-w-[300px]">
+                <DisabledInput
+                  label="Registration Number"
+                  value={watch("registerNumber") || ""}
+                />
+              </div>
+              <div className="w-full max-w-sm sm:min-w-[300px]">
+                <DisabledInput
+                  label="Phone Number"
+                  value={watch("phone") || ""}
+                />
+              </div>
+              <div className="w-full max-w-sm sm:min-w-[300px]">
+                <DisabledInput
+                  label="Email"
+                  value={watch("email") || ""}
+                  placeholder="Fetching your email..."
+                />
+              </div>
+              <div className="w-full max-w-sm sm:min-w-[300px]">
+                <DisabledInput
+                  label="Department Preference 1"
+                  value={watch("preference1") || ""}
+                />
+              </div>
+              <div className="w-full max-w-sm sm:min-w-[300px]">
+                <DisabledInput
+                  label="Department Preference 2"
+                  value={watch("preference2") || ""}
+                />
+              </div>
             </div>
           </div>
         )}
+
         <div className="w-full flex justify-between px-2 py-2 h-fit">
           <div
             className="cursor-pointer  text-lg  rounded-full  flex justify-center items-center 
@@ -420,7 +435,6 @@ function InputBox({
     </div>
   );
 }
-
 function DisabledInput({
   label,
   value,
@@ -433,9 +447,10 @@ function DisabledInput({
   const isEmpty = !value || value.trim() === "";
 
   return (
-    <div className="w-full max-w-[500px] sm:min-w-[300px]">
+    <div className="w-full max-w-sm sm:min-w-[300px]">
       <div className="mb-2">{label}</div>
-      <div className="w-full min-w-[200px]">
+
+      <div className="w-full relative max-w-sm min-w-[200px]">
         <input
           className={`w-full bg-transparent placeholder:text-white/40 text-white text-sm rounded-md px-3 py-2 transition duration-300 ease focus:outline-none shadow-sm ring-0 focus:ring-2 focus:ring-white disabled:cursor-default
             ${
@@ -464,10 +479,12 @@ function TextArea({
   textareaProps?: TextareaHTMLAttributes<HTMLTextAreaElement>;
 }) {
   return (
-    <div className="w-full min-w-[300px]">
-      <div className="w-[500px]">{label}</div>
-      <div className=" text-neutral-400 w-[500px]">{subtitle}</div>
-      <div className="w-full mt-2 min-w-[500px]">
+    <div className="w-fit sm:w-full max-w-[250px] sm:min-w-[300px]">
+      <div className="md:w-[500px]">{label}</div>
+      <div className=" text-neutral-400 md:w-[500px] text-sm sm:text-base ">
+        {subtitle}
+      </div>
+      <div className="w-full mt-2 md:min-w-[500px]">
         <textarea
           rows={4}
           className="w-full bg-transparent placeholder:text-white/40 text-white text-sm border border-white/60 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-white hover:border-white shadow-sm focus:shadow ring-0 focus:ring-2 focus:ring-white resize-none"

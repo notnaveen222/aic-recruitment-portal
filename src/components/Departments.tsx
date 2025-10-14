@@ -9,9 +9,11 @@ export default function Departments() {
     "Outreach",
   ];
   return (
-    <div className="w-screen flex flex-col pt-14 mb-10 justify-center items-center">
-      <div className="text-5xl font-medium">Our Departments</div>
-      <div className="flex gap-x-3 my-10">
+    <div className="w-screen flex flex-col pt-14 mb-10   justify-center items-center">
+      <div className="text-4xl sm:text-5xl text-center font-medium">
+        Our Departments
+      </div>
+      <div className="flex flex-row flex-wrap justify-center gap-y-5 w-full gap-x-3 my-10">
         {DEPT.map((dept, idx) => (
           <div key={idx}>
             <DepartmentCard title={dept} colorSet={DEPT_COLORS[dept]} />
@@ -58,7 +60,7 @@ function DepartmentCard({
       <div
         className={`relative 
            
-         rounded-xl overflow-hidden border-2 border-white/10 max-w-[250px] h-80 w-full flex items-center justify-center transition-all duration-150`}
+         rounded-xl overflow-hidden border-2 border-white/10 max-w-[150px] h-52 sm:max-w-[250px] sm:h-80 w-full flex items-center justify-center transition-all duration-150`}
       >
         {/* Canvas background */}
         <CanvasRevealEffect
@@ -72,7 +74,7 @@ function DepartmentCard({
         <div className="absolute inset-0  transition-all duration-150" />
 
         {/* Foreground text */}
-        <div className="absolute inset-0 text-3xl shadow-lg/30 font-semibold text-white cursor-pointer flex justify-center items-center select-none">
+        <div className="absolute inset-0 text-2xl sm:text-3xl shadow-lg/30 font-semibold text-white cursor-pointer flex justify-center items-center text-center select-none">
           {title}
         </div>
       </div>

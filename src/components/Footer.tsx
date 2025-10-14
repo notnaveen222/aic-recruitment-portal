@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <div className="w-full px-20">
+    <div className="w-full px-5 sm:px-20">
       <div className="w-full py-5 border-t flex justify-between border-t-white/20">
         <div>AIC 2025</div>
         <div className="flex gap-x-2">

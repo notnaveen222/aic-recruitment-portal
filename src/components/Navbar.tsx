@@ -7,7 +7,7 @@ export default function Navbar() {
   const pathName = usePathname();
   const { status } = useSession();
   return (
-    <div className="top-0 sticky h-14 w-full flex items-center justify-between px-24">
+    <div className="top-0 sticky h-14 w-full flex items-center justify-between px-4 sm:px-24">
       <div className="font-medium text-base" onClick={() => router.push("/")}>
         Artificial Intelligence Club
       </div>

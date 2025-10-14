@@ -7,8 +7,8 @@ import { cn } from "@/lib/utils";
 
 export default function Home() {
   return (
-    <div className="">
-      <div className="relative flex font-medium justify-center gap-x-28 pt-60">
+    <div className="w-screen overflow-x-hidden">
+      <div className="relative flex font-medium justify-center gap-x-28 pt-16 sm:pt-60">
         <svg
           className="h-full relative -top-0"
           xmlns="http://www.w3.org/2000/svg"
@@ -82,24 +82,37 @@ export default function Home() {
             </linearGradient>
           </defs>
         </svg>
-        <div className=" left-0 absolute top-10 flex size-full items-center justify-center overflow-hidden z-0 p-20 opacity-70">
-          <GridPattern
-            width={25}
-            height={25}
-            x={-1}
-            y={-1}
-            className={cn(
-              "[mask-image:radial-gradient(500px_200px_at_center,white,transparent)]"
-            )}
-          />
+        <div className=" left-0 absolute top-8 sm:top-10 flex size-full items-center justify-center overflow-hidden z-0 p-20 opacity-70">
+          <div className="block  sm:hidden">
+            <GridPattern
+              width={18}
+              height={18}
+              x={-1}
+              y={-1}
+              className={cn(
+                "[mask-image:radial-gradient(200px_150px_at_center,white,transparent)] "
+              )}
+            />
+          </div>
+          <div className="hidden sm:block">
+            <GridPattern
+              width={25}
+              height={25}
+              x={-1}
+              y={-1}
+              className={cn(
+                "[mask-image:radial-gradient(500px_200px_at_center,white,transparent)]"
+              )}
+            />
+          </div>
         </div>
         <div className="text-center text-shadow-lg/80 pt-10 z-10 flex flex-col">
-          <div className="flex flex-col mb-3 text-8xl">
+          <div className="flex flex-col mb-3 text-5xl sm:text-8xl">
             <HeroBadge />
             <div className="">Welcome to</div>
             <div>AIC Recruitment Portal</div>
           </div>
-          <div className="text-lg mb-10 font-medium text-neutral-400 max-w-xl mx-auto">
+          <div className="text-base sm:text-lg mb-10 font-medium text-neutral-400 max-w-xl mx-auto">
             Join the our community and explore opportunities to learn, create,
             and lead through innovation and collaboration.
           </div>

@@ -6,7 +6,7 @@ export default function SignIn() {
   const [signInError, setSignInError] = useState<string>("");
   return (
     <div className="flex flex-col items-center grow  justify-center">
-      <div className="hero-bg border-white border-2 rounded-xl  px-10 pt-10 pb-5">
+      <div className="hero-bg border-white border-2 rounded-xl px-4 sm:px-10 pt-10 pb-5">
         <div className="text-white font-medium tracking-wide text-xl mb-2 text-center">
           AIC Recruitment Portal
         </div>
