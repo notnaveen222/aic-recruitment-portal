@@ -1,4 +1,39 @@
+"use client";
+import React, { useRef } from "react";
+import { AnimatePresence, motion, useInView } from "motion/react";
+import { easeOut } from "motion";
 import { CanvasRevealEffect } from "./CanvasRevealEffect";
+import { OpacityAnimation } from "./MotionAnimation";
+
+function StaggerAnimation({ children }: { children: React.ReactNode }) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "0px 0px -100px 0px" });
+
+  const parentVariants = {
+    hidden: { filter: "blur(10px)", scale: 0.98 },
+    show: {
+      filter: "blur(0px)",
+      scale: 1,
+      transition: {
+        ease: easeOut,
+        duration: 0.3,
+        staggerChildren: 0.15,
+      },
+    },
+  };
+
+  return (
+    <motion.div
+      ref={ref}
+      variants={parentVariants}
+      initial="hidden"
+      animate={isInView ? "show" : "hidden"}
+      className="flex flex-row flex-wrap justify-center gap-y-5 w-full gap-x-8 my-14"
+    >
+      {children}
+    </motion.div>
+  );
+}
 
 export default function Departments() {
   const DEPT = [
@@ -8,76 +43,160 @@ export default function Departments() {
     "Visual Media",
     "Outreach",
   ];
+  const childVariants = {
+    hidden: { opacity: 0, y: 30 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: easeOut } },
+  };
   return (
-    <div className="w-screen flex flex-col pt-14 mb-10   justify-center items-center">
-      <div className="text-4xl sm:text-5xl text-center font-medium">
-        Our Departments
-      </div>
-      <div className="flex flex-row flex-wrap justify-center gap-y-5 w-full gap-x-3 my-10">
-        {DEPT.map((dept, idx) => (
-          <div key={idx}>
-            <DepartmentCard title={dept} colorSet={DEPT_COLORS[dept]} />
-          </div>
-        ))}
+    <div className="w-screen flex flex-col pt-14 mb-10 justify-center items-center">
+      <OpacityAnimation delay={0.5}>
+        <div className="text-4xl sm:text-5xl text-center font-medium">
+          Our Departments
+        </div>
+      </OpacityAnimation>
+
+      <div className="flex flex-col flex-wrap justify-center gap-y-5 w-full gap-x-8 my-0 sm:my-14">
+        <StaggerAnimation>
+          {DEPT.map((dept, idx) => (
+            <motion.div key={idx} variants={childVariants}>
+              <Card title={dept} desc={DEPT_DESC[dept]}>
+                <CanvasRevealEffect
+                  animationSpeed={6}
+                  containerClassName="bg-black"
+                  colors={DEPT_COLORS[dept]}
+                  dotSize={2}
+                />
+                <div className="absolute inset-0 [mask-image:radial-gradient(400px_at_center,white,transparent)] bg-black/50 dark:bg-black/90" />
+              </Card>
+            </motion.div>
+          ))}
+        </StaggerAnimation>
       </div>
     </div>
   );
 }
+
+const Card = ({
+  title,
+  desc,
+  children,
+}: {
+  title: string;
+  desc: string;
+  children?: React.ReactNode;
+}) => {
+  const [hovered, setHovered] = React.useState(false);
+  return (
+    <div
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      className="border border-black/[0.2] group/canvas-card flex items-center justify-center dark:border-white/[0.2] hover:border-neutral-600  transition-all duration-200  w-[150px] sm:min-w-3xs mx-auto p-2 sm:p-4 relative h-60 sm:h-[400px] "
+    >
+      <Icon className="absolute h-6 w-6 -top-3 -left-3 dark:text-white text-black" />
+      <Icon className="absolute h-6 w-6 -bottom-3 -left-3 dark:text-white text-black" />
+      <Icon className="absolute h-6 w-6 -top-3 -right-3 dark:text-white text-black" />
+      <Icon className="absolute h-6 w-6 -bottom-3 -right-3 dark:text-white text-black" />
+
+      <AnimatePresence>
+        {hovered && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="h-full w-full absolute inset-0"
+          >
+            {children}
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <div className="relative h-full  w-full hidden sm:flex z-20 items-center justify-center ">
+        {/* Title */}
+        <div
+          className="absolute text-center text-2xl font-semibold transition duration-300 
+               group-hover/canvas-card:-translate-y-4 group-hover/canvas-card:opacity-0"
+        >
+          {title}
+        </div>
+
+        {/* Description */}
+        <div
+          className="absolute text-center text-white text-sm font-semibold sm:text-base opacity-0 cursor-default
+               group-hover/canvas-card:opacity-100 group-hover/canvas-card:-translate-y-2 
+               transition duration-300 max-w-[220px] px-2 leading-relaxed"
+        >
+          {desc}
+        </div>
+      </div>
+      <div className="relative h-full  w-full flex sm:hidden flex-col items-start z-20 ">
+        {/* Title */}
+        <div
+          className=" text-center text-xl font-semibold transition duration-300 
+               group-hover/canvas-card:-translate-y-4 group-hover/canvas-card:opacity-0 mb-14"
+        >
+          {title}
+        </div>
+        <div className="text-sm text-right">{desc}</div>
+
+        {/* Description */}
+        {/* <div
+          className="absolute text-center text-white text-sm font-semibold sm:text-base opacity-0 cursor-default
+               group-hover/canvas-card:opacity-100 group-hover/canvas-card:-translate-y-2 
+               transition duration-300 max-w-[220px] px-2 leading-relaxed"
+        >
+          {desc}
+        </div> */}
+      </div>
+    </div>
+  );
+};
+
+export const Icon = ({ className }: { className: string }) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth="1.5"
+      stroke="currentColor"
+      className={className}
+    >
+      <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m6-6H6" />
+    </svg>
+  );
+};
+
 const DEPT_COLORS: Record<string, number[][]> = {
   Operations: [
-    [16, 185, 129], // emerald
+    [16, 185, 129],
     [110, 231, 183],
   ],
   Technical: [
-    [59, 130, 246], // sky
+    [59, 130, 246],
     [125, 211, 252],
   ],
   Creatives: [
-    [236, 72, 153], // pink
+    [236, 72, 153],
     [232, 121, 249],
   ],
   "Visual Media": [
-    [249, 115, 22], // orange
+    [249, 115, 22],
     [253, 186, 116],
   ],
   Outreach: [
-    [139, 92, 246], // violet
+    [139, 92, 246],
     [196, 181, 253],
   ],
 };
 
-function DepartmentCard({
-  title,
-
-  colorSet,
-}: {
-  title: string;
-
-  colorSet: number[][];
-}) {
-  return (
-    <div className="flex items-center justify-center bg-black ">
-      <div
-        className={`relative 
-           
-         rounded-xl overflow-hidden border-2 border-white/10 max-w-[150px] h-52 sm:max-w-[250px] sm:h-80 w-full flex items-center justify-center transition-all duration-150`}
-      >
-        {/* Canvas background */}
-        <CanvasRevealEffect
-          animationSpeed={3}
-          containerClassName="bg-black"
-          colors={colorSet}
-          dotSize={2}
-        />
-
-        {/* Gradient overlay for soft fade */}
-        <div className="absolute inset-0  transition-all duration-150" />
-
-        {/* Foreground text */}
-        <div className="absolute inset-0 text-2xl sm:text-3xl shadow-lg/30 font-semibold text-white cursor-pointer flex justify-center items-center text-center select-none">
-          {title}
-        </div>
-      </div>
-    </div>
-  );
-}
+const DEPT_DESC: Record<string, string> = {
+  Operations:
+    "Handles planning, logistics, and smooth execution of every club event, ensuring everything runs on schedule.",
+  Technical:
+    "Powers the club’s digital side through websites, software, and tech solutions for projects and events.",
+  Creatives:
+    "Brings ideas to life through design, content, and concepts that reflect the club’s creativity.",
+  "Visual Media":
+    "Captures and showcases moments through photography, videography, and editing to tell our story.",
+  Outreach:
+    "Builds partnerships, manages promotions, and connects the club with the student community and beyond.",
+};

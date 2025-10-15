@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import SessionProvider from "./providers/SessionProvider";
+import CustomCursor from "@/components/CustomCursor";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -22,9 +23,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.className} flex flex-col min-h-screen  antialiased`}
+        className={`${inter.className}  flex flex-col cursor-none min-h-screen  antialiased`}
       >
         <SessionProvider>
+          <CustomCursor />
           <Navbar />
           <main className="flex-grow flex flex-col">{children}</main>
         </SessionProvider>
