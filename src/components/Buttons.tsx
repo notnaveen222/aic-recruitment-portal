@@ -2,7 +2,6 @@
 
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-//if already has a session, skip the login page and go to apply page
 export default function LoginButton({
   setSignInError,
 }: {
@@ -30,7 +29,7 @@ export default function LoginButton({
   };
   return (
     <button
-      className="w-full flex items-center border-2 border-white/65 hover:border-white justify-center text-white py-2 mb-2 gap-x-2 text-sm font-semibold rounded-lg cursor-pointer transition-all duration-250 backdrop-blur-lg hover:backdrop-blur-none"
+      className="w-full flex items-center border-2 border-white/65 hover:border-white justify-center text-white py-2 mb-2 gap-x-2 text-sm font-semibold rounded-lg cursor-none transition-all duration-250 backdrop-blur-lg hover:backdrop-blur-none"
       onClick={() => handleSignIn()}
     >
       Login With Google
@@ -44,9 +43,7 @@ export default function LoginButton({
 //check bout session
 
 export function NeonButton({ title }: { title: string }) {
-  return (
-    <button className="neon-button cursor-pointer mb-1 mr-2">{title}</button>
-  );
+  return <button className="neon-button cursor-none mb-1 mr-2">{title}</button>;
 }
 
 export function ApplyNowButton({ title }: { title: string }) {

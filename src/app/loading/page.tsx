@@ -6,7 +6,7 @@ export default function Loading() {
     <div className="w-screen overflow-x-hidden">
       <div className="relative flex font-medium justify-center gap-x-28 pt-16 sm:pt-52">
         <svg
-          className="h-full relative  -top-0"
+          className="h-full relative -top-0"
           xmlns="http://www.w3.org/2000/svg"
           width="70"
           height="568"

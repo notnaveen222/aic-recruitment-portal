@@ -13,7 +13,7 @@ export default function Home() {
         <div className="relative flex font-medium pt-16 sm:pt-52">
           <OpacityAnimation delay={0.2}>
             <svg
-              className="h-full hidden sm:block"
+              className="h-full relative left-10 lg:left-0 hidden sm:block"
               xmlns="http://www.w3.org/2000/svg"
               width="70"
               height="568"
@@ -116,15 +116,15 @@ export default function Home() {
             <HeroText />
             <OpacityAnimation delay={0.5}>
               <div className="text-base sm:text-lg mb-20 sm:mb-10 font-medium text-neutral-400  max-w-xl mx-auto">
-                Join the our community and explore opportunities to learn,
-                create, and lead through innovation and collaboration.
+                Join our community and explore opportunities to learn, create,
+                and lead through innovation and collaboration.
               </div>
               <ApplyNowButton title="Apply Now" />
             </OpacityAnimation>
           </div>
           <OpacityAnimation delay={0.2}>
             <svg
-              className=" h-full hidden sm:block"
+              className=" h-full relative right-10 lg:right-0 hidden sm:block"
               xmlns="http://www.w3.org/2000/svg"
               width="70"
               height="568"

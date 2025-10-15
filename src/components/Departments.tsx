@@ -120,8 +120,7 @@ const Card = ({
 
         {/* Description */}
         <div
-          className="absolute text-center text-white text-sm font-semibold sm:text-base opacity-0 cursor-default
-               group-hover/canvas-card:opacity-100 group-hover/canvas-card:-translate-y-2 
+          className="absolute text-center text-white text-sm font-semibold sm:text-base opacity-0 group-hover/canvas-card:opacity-100 group-hover/canvas-card:-translate-y-2 
                transition cursor-none duration-300 max-w-[220px] px-2 leading-relaxed"
         >
           {desc}

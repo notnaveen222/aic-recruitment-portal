@@ -25,7 +25,7 @@ const FlipText = ({
     <motion.div
       initial="initial"
       whileHover="hovered"
-      className="relative block overflow-hidden whitespace-nowrap cursor-none"
+      className="relative block overflow-hidden whitespace-nowrap cursor-none "
       style={{ lineHeight: 1.15 }}
     >
       <div className="overflow-visible">
@@ -100,7 +100,7 @@ export default function Navbar() {
 
           <motion.button
             onClick={handleClick}
-            className="relative font-medium text-base"
+            className="relative font-medium text-base border-b-2 border-b-border"
             whileTap={{ scale: 0.95 }}
           >
             <FlipText text={buttonLabel} />
