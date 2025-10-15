@@ -3,7 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { signOut, useSession } from "next-auth/react";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { FadeDownAnimation } from "./MotionAnimation";
 
 const DURATION = 0.25;
@@ -25,8 +25,8 @@ const FlipText = ({
     <motion.div
       initial="initial"
       whileHover="hovered"
-      className="relative block overflow-hidden whitespace-nowrap"
-      style={{ lineHeight: 1.15 }} // ⬅️ give extra breathing room for descenders
+      className="relative block overflow-hidden whitespace-nowrap cursor-none"
+      style={{ lineHeight: 1.15 }}
     >
       <div className="overflow-visible">
         {letters.map((l, i) => (
@@ -42,7 +42,7 @@ const FlipText = ({
               delay: zeroDelay ? 0 : STAGGER * i,
             }}
             className="inline-block will-change-transform"
-            style={{ paddingBottom: "0.05em" }} // ⬅️ ensures “g” doesn’t clip
+            style={{ paddingBottom: "0.05em" }}
           >
             {l}
           </motion.span>
@@ -62,7 +62,7 @@ const FlipText = ({
               delay: zeroDelay ? 0 : STAGGER * i,
             }}
             className="inline-block will-change-transform"
-            style={{ paddingBottom: "0.05em" }} // ⬅️ same fix for the second layer
+            style={{ paddingBottom: "0.05em" }}
           >
             {l}
           </motion.span>
@@ -74,40 +74,39 @@ const FlipText = ({
 
 export default function Navbar() {
   const router = useRouter();
-  const pathName = usePathname();
-  const { status } = useSession();
+  const { data: session, status } = useSession();
+
+  // ✅ Button label depends purely on session
+  const buttonLabel = status === "authenticated" ? "Logout" : "Join Us";
 
   const handleClick = () => {
-    if (pathName !== "/apply") {
-      if (status === "authenticated") router.push("/apply");
-      else router.push("/auth/signin");
-    } else {
+    if (status === "authenticated") {
       signOut();
+    } else {
       router.push("/auth/signin");
     }
   };
 
-  const buttonLabel = pathName !== "/apply" ? "Join Us" : "Logout";
-
   return (
-    <FadeDownAnimation delay={0.3}>
-      <div className="top-0 sticky h-14 w-full flex items-center justify-between px-4 z-50 backdrop-blur-xs sm:px-24">
-        <div
-          className="font-medium text-base cursor-pointer"
-          onClick={() => router.push("/")}
-        >
-          <FlipText text="Artificial Intelligence Club" zeroDelay />
-        </div>
+    <div className="top-0 sticky h-14 backdrop-blur-xs z-50 w-full">
+      <FadeDownAnimation delay={0.3}>
+        <div className="flex items-center h-14 justify-between px-4 sm:px-24">
+          <div
+            className="font-medium text-base cursor-pointer"
+            onClick={() => router.push("/")}
+          >
+            <FlipText text="Artificial Intelligence Club" zeroDelay />
+          </div>
 
-        {/* 🔥 Animated Join Us / Logout Button */}
-        <motion.button
-          onClick={handleClick}
-          className="relative font-medium text-base "
-          whileTap={{ scale: 0.95 }}
-        >
-          <FlipText text={buttonLabel} />
-        </motion.button>
-      </div>
-    </FadeDownAnimation>
+          <motion.button
+            onClick={handleClick}
+            className="relative font-medium text-base"
+            whileTap={{ scale: 0.95 }}
+          >
+            <FlipText text={buttonLabel} />
+          </motion.button>
+        </div>
+      </FadeDownAnimation>
+    </div>
   );
 }

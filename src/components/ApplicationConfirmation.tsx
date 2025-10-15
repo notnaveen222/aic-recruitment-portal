@@ -7,7 +7,7 @@ export default function ApplicationConfirm({
 }) {
   return (
     visible && (
-      <div className="absolute top-18 sm:top-20 bottom-5 sm:bottom-10 inset-x-5 sm:inset-x-10 border-neutral-400/60 rounded-2xl border backdrop-blur-sm flex text-2xl font-semibold justify-center items-center text-center">
+      <div className="fixed top-14 sm:top-20 bottom-5 sm:bottom-10 inset-x-5 sm:inset-x-10 border-neutral-400/60 rounded-2xl border backdrop-blur-sm flex text-2xl font-semibold justify-center items-center text-center">
         {status == "loading" && (
           <div className="fade-loop ">
             Submitting Your Application, Hold Tight!

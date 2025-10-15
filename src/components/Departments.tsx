@@ -90,7 +90,7 @@ const Card = ({
     <div
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="border border-black/[0.2] group/canvas-card flex items-center justify-center dark:border-white/[0.2] hover:border-neutral-600  transition-all duration-200  w-[150px] sm:min-w-3xs mx-auto p-2 sm:p-4 relative h-60 sm:h-[400px] "
+      className="border border-black/[0.2] cursor-none group/canvas-card flex items-center justify-center dark:border-white/[0.2] hover:border-neutral-600  transition-all duration-200  w-[150px] sm:min-w-3xs mx-auto p-2 sm:p-4 relative h-60 sm:h-[400px] "
     >
       <Icon className="absolute h-6 w-6 -top-3 -left-3 dark:text-white text-black" />
       <Icon className="absolute h-6 w-6 -bottom-3 -left-3 dark:text-white text-black" />
@@ -109,7 +109,7 @@ const Card = ({
         )}
       </AnimatePresence>
 
-      <div className="relative h-full  w-full hidden sm:flex z-20 items-center justify-center ">
+      <div className="relative h-full cursor-none w-full hidden sm:flex z-20 items-center justify-center ">
         {/* Title */}
         <div
           className="absolute text-center text-2xl font-semibold transition duration-300 
@@ -122,12 +122,12 @@ const Card = ({
         <div
           className="absolute text-center text-white text-sm font-semibold sm:text-base opacity-0 cursor-default
                group-hover/canvas-card:opacity-100 group-hover/canvas-card:-translate-y-2 
-               transition duration-300 max-w-[220px] px-2 leading-relaxed"
+               transition cursor-none duration-300 max-w-[220px] px-2 leading-relaxed"
         >
           {desc}
         </div>
       </div>
-      <div className="relative h-full  w-full flex sm:hidden flex-col items-start z-20 ">
+      <div className="relative h-full cursor-none  w-full flex sm:hidden flex-col items-start z-20 ">
         {/* Title */}
         <div
           className=" text-center text-xl font-semibold transition duration-300 
@@ -135,7 +135,7 @@ const Card = ({
         >
           {title}
         </div>
-        <div className="text-sm text-right">{desc}</div>
+        <div className="text-sm text-right cursor-none">{desc}</div>
 
         {/* Description */}
         {/* <div

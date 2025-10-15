@@ -4,7 +4,11 @@ export default function Footer() {
       <div className="w-full py-5 border-t flex justify-between border-t-white/20">
         <div>AIC 2025</div>
         <div className="flex gap-x-2">
-          <a href="https://www.instagram.com/aiclubvitc/" target="_blank">
+          <a
+            href="https://www.instagram.com/aiclubvitc/"
+            className="cursor-none"
+            target="_blank"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
