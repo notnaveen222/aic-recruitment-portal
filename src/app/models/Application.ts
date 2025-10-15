@@ -70,7 +70,10 @@ const applicantSchema = new mongoose.Schema(
         message: "{VALUE} is not a valid department",
       },
       validate: {
-        validator: function (this: any, value: string) {
+        validator: function (
+          this: mongoose.Document & { firstPreference?: string },
+          value: string
+        ) {
           return value !== this.firstPreference;
         },
         message: "Second preference must be different from first preference",
@@ -98,7 +101,13 @@ const applicantSchema = new mongoose.Schema(
       default: "",
       trim: true,
       validate: {
-        validator: function (this: any, v: string) {
+        validator: function (
+          this: mongoose.Document & {
+            firstPreference?: string;
+            secondPreference?: string;
+          },
+          v: string
+        ) {
           if (!v || v.length === 0) {
             if (
               this.firstPreference === "Technical" ||
@@ -187,7 +196,11 @@ applicantSchema.index({ firstPreference: 1, secondPreference: 1 });
 
 // Pre-save check for workLink requirement
 applicantSchema.pre("save", function (next) {
-  const doc: any = this as any;
+  const doc = this as mongoose.Document & {
+    firstPreference?: string;
+    secondPreference?: string;
+    workLink?: string;
+  };
   if (
     (doc.firstPreference === "Technical" ||
       doc.firstPreference === "Creative" ||

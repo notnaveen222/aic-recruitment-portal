@@ -40,11 +40,19 @@ export async function POST(req: NextRequest) {
     return new Response(JSON.stringify({ success: true, data: newApp }), {
       status: 201,
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Error saving form data:", error);
 
-    if (error?.code === 11000) {
-      const fields = Object.keys(error.keyPattern || {});
+    const err = error as {
+      code?: number;
+      keyPattern?: Record<string, unknown>;
+      name?: string;
+      errors?: Record<string, { message?: string }>;
+      message?: string;
+    };
+
+    if (err?.code === 11000) {
+      const fields = Object.keys(err.keyPattern || {});
       const field = fields[0] || "field";
       return new Response(
         JSON.stringify({
@@ -55,8 +63,8 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    if (error?.name === "ValidationError") {
-      const firstErr = Object.values<any>(error.errors)[0];
+    if (err?.name === "ValidationError") {
+      const firstErr = Object.values(err.errors ?? {})[0];
       const message = firstErr?.message || "Validation failed";
       return new Response(JSON.stringify({ success: false, error: message }), {
         status: 400,
