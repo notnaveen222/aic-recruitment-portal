@@ -34,7 +34,6 @@ export default function Home() {
               ></path>
 
               <defs>
-                {/* ANIMATED GRADIENT (traveling particle) */}
                 <linearGradient
                   id="animation_gradient_left"
                   x1="0"
@@ -69,7 +68,6 @@ export default function Home() {
                   </stop>
                 </linearGradient>
 
-                {/* GREY STATIC BACK PATH */}
                 <linearGradient
                   id="paint0_linear_left"
                   x1="1"
@@ -145,7 +143,6 @@ export default function Home() {
               ></path>
 
               <defs>
-                {/* ANIMATED GRADIENT (traveling particle) */}
                 <linearGradient
                   id="animation_gradient_right"
                   x1="0"
@@ -180,7 +177,6 @@ export default function Home() {
                   </stop>
                 </linearGradient>
 
-                {/* GREY STATIC BACK PATH */}
                 <linearGradient
                   id="paint0_linear_right"
                   x1="88"

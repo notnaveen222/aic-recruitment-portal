@@ -9,7 +9,6 @@ import { FadeDownAnimation } from "./MotionAnimation";
 const DURATION = 0.25;
 const STAGGER = 0.025;
 
-// ✨ Reusable FlipText animation
 const FlipText = ({
   text,
   zeroDelay,

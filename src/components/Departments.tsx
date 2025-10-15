@@ -110,15 +110,12 @@ const Card = ({
       </AnimatePresence>
 
       <div className="relative h-full cursor-none w-full hidden sm:flex z-20 items-center justify-center ">
-        {/* Title */}
         <div
           className="absolute text-center text-2xl font-semibold transition duration-300 
                group-hover/canvas-card:-translate-y-4 group-hover/canvas-card:opacity-0"
         >
           {title}
         </div>
-
-        {/* Description */}
         <div
           className="absolute text-center text-white text-sm font-semibold sm:text-base opacity-0 group-hover/canvas-card:opacity-100 group-hover/canvas-card:-translate-y-2 
                transition cursor-none duration-300 max-w-[220px] px-2 leading-relaxed"
@@ -127,7 +124,6 @@ const Card = ({
         </div>
       </div>
       <div className="relative h-full cursor-none  w-full flex sm:hidden flex-col items-start z-20 ">
-        {/* Title */}
         <div
           className=" text-center text-xl font-semibold transition duration-300 
                group-hover/canvas-card:-translate-y-4 group-hover/canvas-card:opacity-0 mb-14"
@@ -135,15 +131,6 @@ const Card = ({
           {title}
         </div>
         <div className="text-sm text-right cursor-none">{desc}</div>
-
-        {/* Description */}
-        {/* <div
-          className="absolute text-center text-white text-sm font-semibold sm:text-base opacity-0 cursor-default
-               group-hover/canvas-card:opacity-100 group-hover/canvas-card:-translate-y-2 
-               transition duration-300 max-w-[220px] px-2 leading-relaxed"
-        >
-          {desc}
-        </div> */}
       </div>
     </div>
   );

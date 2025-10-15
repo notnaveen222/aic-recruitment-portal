@@ -18,7 +18,7 @@ export default function LoginButton({
           "Invalid Email Selected, Please use a VIT student email ID."
         );
       } else if (res?.ok) {
-        setSignInError(""); // Clear any previous errors on successful sign in
+        setSignInError("");
       }
     } catch (error) {
       console.error("Sign in error:", error);
@@ -36,11 +36,6 @@ export default function LoginButton({
     </button>
   );
 }
-
-//check auth route.ts, dk what it does
-//google sign in btn created
-//add redirect to departments page
-//check bout session
 
 export function NeonButton({ title }: { title: string }) {
   return <button className="neon-button cursor-none mb-1 mr-2">{title}</button>;

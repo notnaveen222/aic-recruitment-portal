@@ -1,17 +1,16 @@
 import { connectToDatabase } from "@/lib/mongodb";
-import Application from "@/app/models/Application";
+import Applicant from "@/app/models/Application";
 import { NextRequest } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { email } = body;
+    const { email, registrationNumber } = body;
 
     await connectToDatabase();
 
-    // Check if email already exists
-    const existingApp = await Application.findOne({ email });
-    if (existingApp) {
+    const existingByEmail = await Applicant.findOne({ email });
+    if (existingByEmail) {
       return new Response(
         JSON.stringify({
           success: false,
@@ -21,21 +20,51 @@ export async function POST(req: NextRequest) {
         { status: 409 }
       );
     }
+    if (registrationNumber) {
+      const existingByReg = await Applicant.findOne({ registrationNumber });
+      if (existingByReg) {
+        return new Response(
+          JSON.stringify({
+            success: false,
+            existingApplicaiton: true,
+            message:
+              "This registration number has already been used to submit an application.",
+          }),
+          { status: 409 }
+        );
+      }
+    }
 
-    // Create new application
-    const newApp = await Application.create(body);
+    const newApp = await Applicant.create(body);
 
     return new Response(JSON.stringify({ success: true, data: newApp }), {
       status: 201,
     });
-  } catch (error: unknown) {
+  } catch (error: any) {
     console.error("Error saving form data:", error);
 
-    let message = "An unexpected error occurred";
-    if (error instanceof Error) {
-      message = error.message;
+    if (error?.code === 11000) {
+      const fields = Object.keys(error.keyPattern || {});
+      const field = fields[0] || "field";
+      return new Response(
+        JSON.stringify({
+          success: false,
+          error: `${field} already exists`,
+        }),
+        { status: 409 }
+      );
     }
 
+    if (error?.name === "ValidationError") {
+      const firstErr = Object.values<any>(error.errors)[0];
+      const message = firstErr?.message || "Validation failed";
+      return new Response(JSON.stringify({ success: false, error: message }), {
+        status: 400,
+      });
+    }
+
+    const message =
+      error instanceof Error ? error.message : "An unexpected error occurred";
     return new Response(JSON.stringify({ success: false, error: message }), {
       status: 500,
     });

@@ -13,5 +13,5 @@ export default withAuth(
 );
 
 export const config = {
-  matcher: ["/((?!api|_next|auth|$).*)"], // exclude /api, /_next, /auth, and home page (/)
+  matcher: ["/((?!api|_next|auth|$).*)"],
 };

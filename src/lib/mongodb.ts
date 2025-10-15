@@ -6,7 +6,6 @@ if (!MONGODB_URI) {
   throw new Error("Please define the MONGODB_URI environment variable");
 }
 
-// Extend the NodeJS global type safely
 declare global {
   var _mongooseCache:
     | {
@@ -16,7 +15,6 @@ declare global {
     | undefined;
 }
 
-// Initialize the cache if it doesn't exist
 const cached =
   global._mongooseCache ??
   (global._mongooseCache = { conn: null, promise: null });

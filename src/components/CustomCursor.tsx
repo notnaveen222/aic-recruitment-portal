@@ -5,7 +5,7 @@ export default function CustomCursor() {
   const cursorRef = useRef<SVGSVGElement>(null);
   const mouse = useRef({ x: 0, y: 0 });
   const pos = useRef({ x: 0, y: 0 });
-  const speed = 0.2; // lower = smoother follow
+  const speed = 0.2;
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -14,7 +14,6 @@ export default function CustomCursor() {
     };
 
     const animate = () => {
-      // interpolate positions for smooth following
       pos.current.x += (mouse.current.x - pos.current.x) * speed;
       pos.current.y += (mouse.current.y - pos.current.y) * speed;
 

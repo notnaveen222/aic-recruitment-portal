@@ -6,10 +6,7 @@ export default function HeroBadge() {
   return (
     <OpacityAnimation delay={0.5}>
       <div className="relative w-fit mx-auto overflow-visible z-50 group">
-        {/* Stars animation */}
         <Stars />
-
-        {/* Original badge */}
         <div className="bg-white/10 border hover:bg-transparent hover:backdrop-blur-none border-white/30 hover:border-white/70 transition-all duration-150 px-3 py-px text-sm sm:text-base rounded-full mb-3 w-fit  mx-auto flex gap-x-3 backdrop-blur-sm">
           Best Technical Club&apos;25 🏆
         </div>
@@ -18,7 +15,6 @@ export default function HeroBadge() {
   );
 }
 
-// --- Stars Component ---
 function Stars() {
   const StarSVG = () => (
     <svg

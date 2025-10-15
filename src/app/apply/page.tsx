@@ -22,15 +22,15 @@ import { OpacityAnimation } from "@/components/MotionAnimation";
 
 type FormValues = {
   name: string;
-  registerNumber: string;
+  registrationNumber: string;
   phone: string;
   email: string;
-  preference1: string | null;
-  preference2: string | null;
-  whyJoin: string;
-  fitPref1: string;
-  fitPref2: string;
-  experiences: string;
+  firstPreference: string | null;
+  secondPreference: string | null;
+  whyJoinClub: string;
+  firstPreferenceReason: string;
+  secondPreferenceReason: string;
+  previousExperience: string;
   workLink: string;
 };
 
@@ -44,7 +44,7 @@ export default function ApplyPage() {
   const DEPT = [
     "Operations",
     "Technical",
-    "Creatives",
+    "Creative",
     "Visual Media",
     "Outreach",
   ];
@@ -59,19 +59,21 @@ export default function ApplyPage() {
     setValue,
     watch,
     handleSubmit,
-    formState: { errors },
+    setError,
+    clearErrors,
+    formState: { errors, isValid },
   } = useForm<FormValues>({
     defaultValues: {
       name: "",
-      registerNumber: "",
+      registrationNumber: "",
       phone: "",
       email: session?.user?.email ?? "",
-      preference1: null,
-      preference2: null,
-      whyJoin: "",
-      fitPref1: "",
-      fitPref2: "",
-      experiences: "",
+      firstPreference: null,
+      secondPreference: null,
+      whyJoinClub: "",
+      firstPreferenceReason: "",
+      secondPreferenceReason: "",
+      previousExperience: "",
       workLink: "",
     },
     mode: "onChange",
@@ -110,19 +112,7 @@ export default function ApplyPage() {
       }
     }
   };
-  const requiredFields: (keyof FormValues)[] = [
-    "name",
-    "registerNumber",
-    "phone",
-    "email",
-    "preference1",
-    "preference2",
-  ];
   const watchedValues = watch();
-  const isFormComplete = requiredFields.every(
-    (field) =>
-      watchedValues[field] && watchedValues[field]?.toString().trim() !== ""
-  );
 
   const [confirmationVisible, setConfirmationVisible] =
     useState<boolean>(false);
@@ -213,18 +203,22 @@ export default function ApplyPage() {
                     label="Name"
                     inputProps={{
                       placeholder: "Name",
-                      ...register("name", { required: true }),
+                      ...register("name", { required: "Required" }),
                     }}
-                    error={errors.name ? "Required" : undefined}
+                    error={errors.name?.message as string | undefined}
                   />,
                   <InputBox
                     key="reg"
                     label="Registration Number"
                     inputProps={{
                       placeholder: "Registration Number",
-                      ...register("registerNumber", { required: true }),
+                      ...register("registrationNumber", {
+                        required: "Required",
+                      }),
                     }}
-                    error={errors.registerNumber ? "Required" : undefined}
+                    error={
+                      errors.registrationNumber?.message as string | undefined
+                    }
                   />,
                   <InputBox
                     key="phone"
@@ -232,7 +226,13 @@ export default function ApplyPage() {
                     inputProps={{
                       placeholder: "Phone Number",
                       inputMode: "numeric",
-                      ...register("phone", { required: true }),
+                      ...register("phone", {
+                        required: "Required",
+                        pattern: {
+                          value: /^[6-9]\d{9}$/,
+                          message: "Enter valid 10-digit Indian number",
+                        },
+                      }),
                       onChange: (e) => {
                         const digits = (
                           e.target as HTMLInputElement
@@ -240,7 +240,7 @@ export default function ApplyPage() {
                         setValue("phone", digits, { shouldValidate: true });
                       },
                     }}
-                    error={errors.phone ? "Digits only" : undefined}
+                    error={errors.phone?.message as string | undefined}
                   />,
                   <DisabledInput
                     key="email"
@@ -275,9 +275,17 @@ export default function ApplyPage() {
                       <div
                         onClick={() => {
                           setPreference1(idx);
-                          setValue("preference1", dept, {
+                          setValue("firstPreference", dept, {
                             shouldValidate: true,
                           });
+                          if (watch("secondPreference") === dept) {
+                            setError("secondPreference", {
+                              type: "validate",
+                              message: "Second preference must differ",
+                            });
+                          } else {
+                            clearErrors("secondPreference");
+                          }
                         }}
                       >
                         <DepartmentCard
@@ -305,9 +313,17 @@ export default function ApplyPage() {
                       <div
                         onClick={() => {
                           setPreference2(idx);
-                          setValue("preference2", dept, {
+                          if (watch("firstPreference") === dept) {
+                            setError("secondPreference", {
+                              type: "validate",
+                              message: "Cannot be same as Preference 1",
+                            });
+                            return;
+                          }
+                          setValue("secondPreference", dept, {
                             shouldValidate: true,
                           });
+                          clearErrors("secondPreference");
                         }}
                       >
                         <DepartmentCard
@@ -322,6 +338,14 @@ export default function ApplyPage() {
                 </div>
               </StaggerAnimation>
             </div>
+            {errors.secondPreference && (
+              <div className="text-red-500 text-sm">
+                {String(
+                  errors.secondPreference.message ||
+                    "Second preference must differ"
+                )}
+              </div>
+            )}
           </div>
         )}
         {currentStep == 2 && (
@@ -341,8 +365,15 @@ export default function ApplyPage() {
                       label="Why do you wish to join our club?"
                       textareaProps={{
                         placeholder: "Type your response...",
-                        ...register("whyJoin"),
+                        ...register("whyJoinClub", {
+                          required: "Required",
+                          minLength: {
+                            value: 30,
+                            message: "Min 30 characters",
+                          },
+                        }),
                       }}
+                      error={errors.whyJoinClub?.message as string | undefined}
                     />,
                     <TextArea
                       key="fit1"
@@ -353,8 +384,19 @@ export default function ApplyPage() {
                       } department`}
                       textareaProps={{
                         placeholder: "Type your response...",
-                        ...register("fitPref1"),
+                        ...register("firstPreferenceReason", {
+                          required: "Required",
+                          minLength: {
+                            value: 50,
+                            message: "Min 50 characters",
+                          },
+                        }),
                       }}
+                      error={
+                        errors.firstPreferenceReason?.message as
+                          | string
+                          | undefined
+                      }
                     />,
                     <TextArea
                       key="fit2"
@@ -365,25 +407,56 @@ export default function ApplyPage() {
                       } department`}
                       textareaProps={{
                         placeholder: "Type your response...",
-                        ...register("fitPref2"),
+                        ...register("secondPreferenceReason", {
+                          required: "Required",
+                          minLength: {
+                            value: 50,
+                            message: "Min 50 characters",
+                          },
+                        }),
                       }}
+                      error={
+                        errors.secondPreferenceReason?.message as
+                          | string
+                          | undefined
+                      }
                     />,
                     <TextArea
                       key="exp"
                       label="Any previous experiences related to your department?"
                       textareaProps={{
                         placeholder: "Type your response...",
-                        ...register("experiences"),
+                        ...register("previousExperience"),
                       }}
+                      error={
+                        errors.previousExperience?.message as string | undefined
+                      }
                     />,
                     <TextArea
                       key="link"
                       label="If any previous work, drop the link"
-                      subtitle="Mandatory for technical/creatives (GitHub or portfolio link)"
+                      subtitle="Mandatory for Technical/Creative (GitHub or portfolio link)"
                       textareaProps={{
                         placeholder: "Link...",
-                        ...register("workLink"),
+                        ...register("workLink", {
+                          validate: (v) => {
+                            const pref1 = watch("firstPreference");
+                            const pref2 = watch("secondPreference");
+                            const needsLink =
+                              pref1 === "Technical" ||
+                              pref1 === "Creative" ||
+                              pref2 === "Technical" ||
+                              pref2 === "Creative";
+                            if (needsLink) {
+                              return v && v.trim().length > 0
+                                ? true
+                                : "Link required";
+                            }
+                            return true;
+                          },
+                        }),
                       }}
+                      error={errors.workLink?.message as string | undefined}
                     />,
                   ].map((ta, idx) => (
                     <motion.div key={idx} variants={childVariants}>
@@ -404,7 +477,6 @@ export default function ApplyPage() {
               Make sure these details are correct.
             </div>
 
-            {/* ✅ stagger animation for review inputs */}
             <StaggerAnimation>
               <div className="flex flex-col items-center space-y-5 mb-5">
                 {[
@@ -416,7 +488,7 @@ export default function ApplyPage() {
                   <DisabledInput
                     key="reg"
                     label="Registration Number"
-                    value={watch("registerNumber") || ""}
+                    value={watch("registrationNumber") || ""}
                   />,
                   <DisabledInput
                     key="phone"
@@ -432,12 +504,12 @@ export default function ApplyPage() {
                   <DisabledInput
                     key="pref1"
                     label="Department Preference 1"
-                    value={watch("preference1") || ""}
+                    value={watch("firstPreference") || ""}
                   />,
                   <DisabledInput
                     key="pref2"
                     label="Department Preference 2"
-                    value={watch("preference2") || ""}
+                    value={watch("secondPreference") || ""}
                   />,
                 ].map((input, idx) => (
                   <motion.div key={idx} variants={childVariants}>
@@ -471,7 +543,7 @@ export default function ApplyPage() {
             </button>
             <button
               type={currentStep === 3 ? "submit" : "button"}
-              disabled={currentStep === 3 && !isFormComplete}
+              disabled={currentStep === 3 && !isValid}
               onClick={(e) => {
                 if (currentStep !== 3) {
                   e.preventDefault();
@@ -482,7 +554,7 @@ export default function ApplyPage() {
               className={cn(
                 "inline-flex cursor-none items-center gap-2 rounded-md px-3 py-2 text-sm transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60",
                 currentStep === 3
-                  ? isFormComplete
+                  ? isValid
                     ? "neon-button cursor-pointer"
                     : "border border-neutral-200 text-neutral-200 cursor-not-allowed opacity-50"
                   : "bg-foreground text-background hover:bg-foreground/90"
@@ -569,10 +641,12 @@ function TextArea({
   label,
   subtitle,
   textareaProps,
+  error,
 }: {
   label: string;
   subtitle?: string;
   textareaProps?: TextareaHTMLAttributes<HTMLTextAreaElement>;
+  error?: string;
 }) {
   return (
     <div className="w-fit sm:w-full  sm:max-w-fit sm:min-w-[300px]">
@@ -581,12 +655,19 @@ function TextArea({
         {subtitle}
       </div>
       <div className=" mt-2 min-w-[300px] md:min-w-[400px]">
-        <textarea
-          rows={4}
-          className="w-full bg-transparent cursor-none placeholder:text-white/40 text-white text-sm border border-border rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-white hover:border-white shadow-sm focus:shadow ring-0 focus:ring-2 focus:ring-white resize-none"
-          placeholder="Type your response..."
-          {...textareaProps}
-        ></textarea>
+        <div className="w-full relative">
+          <textarea
+            rows={4}
+            className="w-full bg-transparent cursor-none placeholder:text-white/40 text-white text-sm border border-border rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-white hover:border-white shadow-sm focus:shadow ring-0 focus:ring-2 focus:ring-white resize-none"
+            placeholder="Type your response..."
+            {...textareaProps}
+          ></textarea>
+          {error && (
+            <div className="text-red-500 absolute text-xs -top-2 px-1 right-2 bg-black">
+              {error}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
