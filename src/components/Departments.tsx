@@ -39,7 +39,7 @@ export default function Departments() {
   const DEPT = [
     "Operations",
     "Technical",
-    "Creatives",
+    "Creative",
     "Visual Media",
     "Outreach",
   ];
