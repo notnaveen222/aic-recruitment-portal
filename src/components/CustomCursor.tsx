@@ -34,7 +34,7 @@ export default function CustomCursor() {
   return (
     <svg
       ref={cursorRef}
-      className="fixed pointer-events-none invisible md:visible h-6 w-6 text-black dark:text-white z-[100]"
+      className="fixed pointer-events-none invisible md:visible h-6 w-6 text-white z-[100]"
       viewBox="0 0 24 24"
       fill="black"
       stroke="currentColor"
