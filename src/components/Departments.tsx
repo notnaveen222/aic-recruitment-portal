@@ -178,9 +178,9 @@ const DEPT_DESC: Record<string, string> = {
   Operations:
     "Handles planning, logistics, and smooth execution of every club event, ensuring everything runs on schedule.",
   Technical:
-    "Powers the club’s digital side through websites, software, and tech solutions for projects and events.",
-  Creatives:
-    "Brings ideas to life through design, content, and concepts that reflect the club’s creativity.",
+    "Powers the clubs digital side through websites, software, and tech solutions for projects and events.",
+  Creative:
+    "Brings ideas to life through design, content, and concepts that reflect the clubs creativity.",
   "Visual Media":
     "Captures and showcases moments through photography, videography, and editing to tell our story.",
   Outreach:
