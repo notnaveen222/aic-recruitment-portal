@@ -202,6 +202,7 @@ export default function Home() {
           </OpacityAnimation>
         </div>
         <Departments />
+
         <Footer />
       </div>
     </>

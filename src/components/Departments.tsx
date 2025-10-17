@@ -44,11 +44,11 @@ export default function Departments() {
     "Outreach",
   ];
   const childVariants = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, y: 0 },
     show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: easeOut } },
   };
   return (
-    <div className="w-screen flex z-50 flex-col pt-14 mb-10  justify-center items-center">
+    <div className="w-screen flex z-50 flex-col pt-14 mb-10 justify-center items-center">
       <OpacityAnimation delay={0.5}>
         <div className="text-4xl sm:text-5xl text-center  font-medium">
           Our Departments
@@ -60,7 +60,7 @@ export default function Departments() {
           {DEPT.map((dept, idx) => (
             <motion.div
               key={idx}
-              className="hover:shadow-2xl/5 sm:hover:scale-105  shadow-none transition-all duration-150 shadow-white"
+              className="hover:shadow-2xl/5  shadow-none transition-all duration-150 shadow-white"
               variants={childVariants}
             >
               <Card title={dept} desc={DEPT_DESC[dept]}>
