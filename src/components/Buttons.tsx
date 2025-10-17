@@ -9,7 +9,7 @@ export default function LoginButton({
 }) {
   return (
     <button
-      className="w-full flex items-center border-2 border-white/65 hover:border-white justify-center text-white py-2 mb-2 gap-x-2 text-sm font-semibold rounded-lg  transition-all duration-250 backdrop-blur-lg hover:backdrop-blur-none"
+      className="w-full flex items-center border-2 border-white/65 hover:border-white justify-center text-white py-2 mb-2 gap-x-2 text-sm font-semibold rounded-lg  transition-all duration-250 backdrop-blur-lg hover:backdrop-blur-none cursor-none"
       onClick={() => {
         setTimeout(() => {
           setSignInError("");

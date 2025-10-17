@@ -96,16 +96,16 @@ export default function ApplyPage() {
     if (result.success) {
       setConfirmationStatus("confirmed");
       setTimeout(() => {
-        signOut();
-        router.push("/");
+        signOut({ callbackUrl: "/" });
+
         setConfirmationVisible(false);
       }, 5000);
     } else {
       if (result.existingApplicaiton) {
         setConfirmationStatus("existing");
         setTimeout(() => {
-          signOut();
-          router.push("/");
+          signOut({ callbackUrl: "/" });
+
           setConfirmationVisible(false);
         }, 5000);
       } else {
@@ -556,7 +556,7 @@ export default function ApplyPage() {
                 "inline-flex cursor-none items-center gap-2 rounded-md px-3 py-2 text-sm transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60",
                 currentStep === 3
                   ? isValid
-                    ? "neon-button cursor-pointer"
+                    ? "neon-button "
                     : "border border-neutral-200 text-neutral-200 cursor-not-allowed opacity-50"
                   : "bg-foreground text-background hover:bg-foreground/90"
               )}
