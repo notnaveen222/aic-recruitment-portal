@@ -101,7 +101,7 @@ export default function Home() {
             </svg>
           </OpacityAnimation>
           <OpacityAnimation delay={0.2}>
-            <div className=" left-0 absolute top-4 sm:top-10 flex size-full items-center justify-center overflow-hidden z-0 opacity-70">
+            <div className=" left-0 absolute top-4 sm:top-10 flex size-full items-center justify-center overflow-hidden z-0 opacity-30">
               <div className="block sm:hidden">
                 <GridPattern
                   width={18}
