@@ -1,7 +1,7 @@
 "use client";
 
 import { OpacityAnimation } from "./MotionAnimation";
-import { easeOut, motion } from "motion/react";
+import { motion } from "motion/react";
 
 export default function HeroBadge() {
   return (
@@ -31,7 +31,6 @@ function Stars() {
   const offset = 5;
   return (
     <>
-      {/* Gentle animated stars using framer motion */}
       <motion.div
         animate={{
           y: [0, -offset, offset, 0],
@@ -40,7 +39,7 @@ function Stars() {
           duration: 3,
           repeat: Infinity,
         }}
-        className="absolute  top-[-80%] left-[-30%] w-[25px] opacity-100 drop-shadow-[0_0_10px_#fffdef]"
+        className="absolute  top-[-80%] left-[-10%] sm:left-[-30%] w-[10px] sm:w-[25px] opacity-100 drop-shadow-[0_0_10px_#fffdef]"
       >
         <StarSVG />
       </motion.div>
@@ -53,7 +52,7 @@ function Stars() {
           duration: 3,
           repeat: Infinity,
         }}
-        className="absolute top-[120%] left-[20%] w-[15px] opacity-100 drop-shadow-[0_0_10px_#fffdef]"
+        className="absolute top-[120%] left-[35%] sm:left-[20%] w-[15px] opacity-100 drop-shadow-[0_0_10px_#fffdef]"
       >
         <StarSVG />
       </motion.div>
@@ -66,7 +65,7 @@ function Stars() {
           duration: 3,
           repeat: Infinity,
         }}
-        className="absolute top-[55%] left-[25%] w-[5px] opacity-100 drop-shadow-[0_0_10px_#fffdef]"
+        className="absolute top-[55%] left-[10%] sm:left-[25%] w-[5px] opacity-100 drop-shadow-[0_0_10px_#fffdef]"
       >
         <StarSVG />
       </motion.div>
@@ -92,7 +91,7 @@ function Stars() {
           repeatType: "mirror",
           ease: "easeInOut",
         }}
-        className="absolute top-[25%] left-[115%] w-[15px] opacity-100 drop-shadow-[0_0_10px_#fffdef]"
+        className="absolute top-[-50%] sm:top-[25%] left-[102%] sm:left-[115%] w-[15px] opacity-100 drop-shadow-[0_0_10px_#fffdef]"
       >
         <StarSVG />
       </motion.div>

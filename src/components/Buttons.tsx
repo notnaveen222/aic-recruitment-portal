@@ -7,30 +7,15 @@ export default function LoginButton({
 }: {
   setSignInError: (signInError: string) => void;
 }) {
-  const handleSignIn = async () => {
-    try {
-      const res = await signIn("google", {
-        callbackUrl: "/apply",
-        redirect: false,
-      });
-      if (res?.url?.includes("error=AccessDenied")) {
-        setSignInError(
-          "Invalid Email Selected, Please use a VIT student email ID."
-        );
-      } else if (res?.ok) {
-        setSignInError("");
-      }
-    } catch (error) {
-      console.error("Sign in error:", error);
-      setSignInError(
-        "Invalid Email Selected, Please use a VIT student email ID."
-      );
-    }
-  };
   return (
     <button
-      className="w-full flex items-center border-2 border-white/65 hover:border-white justify-center text-white py-2 mb-2 gap-x-2 text-sm font-semibold rounded-lg cursor-none transition-all duration-250 backdrop-blur-lg hover:backdrop-blur-none"
-      onClick={() => handleSignIn()}
+      className="w-full flex items-center border-2 border-white/65 hover:border-white justify-center text-white py-2 mb-2 gap-x-2 text-sm font-semibold rounded-lg  transition-all duration-250 backdrop-blur-lg hover:backdrop-blur-none"
+      onClick={() => {
+        setTimeout(() => {
+          setSignInError("");
+        }, 2000);
+        signIn("google", { callbackUrl: "/apply" });
+      }}
     >
       Login With Google
     </button>

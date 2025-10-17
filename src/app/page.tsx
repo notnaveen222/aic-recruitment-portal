@@ -3,20 +3,17 @@ import Departments from "@/components/Departments";
 import Footer from "@/components/Footer";
 import HeroText from "@/components/HeroText";
 import { OpacityAnimation } from "@/components/MotionAnimation";
-import { GridPattern } from "@/components/patter-bg";
-import { cn } from "@/lib/utils";
-import PrismaticBurst from "@/components/PrismaticBurst";
 import DarkVeil from "@/components/Backgrouds/DarkVeil";
 import { Particles } from "@/components/Backgrouds/Particles";
 
 export default function Home() {
   return (
     <>
-      <div className="grow flex flex-col  items-center  overflow-x-hidden">
-        <div style={{ width: "100%", height: "100%" }} className="absolute z-0">
+      <div className="grow flex flex-col items-center  overflow-x-hidden">
+        <div style={{ width: "100%" }} className="absolute z-0 h-1/3 sm:h-full">
           <DarkVeil speed={0.8} />
         </div>
-        <div className="absolute [mask-image:linear-gradient(to_bottom,transparent_5%,white_100%)] z-10 inset-x-0 h-[90vh] ">
+        <div className="hidden sm:block absolute [mask-image:linear-gradient(to_bottom,transparent_5%,white_100%)] z-10 inset-x-0 h-[90vh] ">
           <Particles />
         </div>
         <div className="relative flex w-full z-20 justify-center font-medium pt-16 sm:pt-52">

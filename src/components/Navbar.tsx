@@ -73,9 +73,8 @@ const FlipText = ({
 
 export default function Navbar() {
   const router = useRouter();
-  const { data: session, status } = useSession();
+  const { status } = useSession();
 
-  // ✅ Button label depends purely on session
   const buttonLabel = status === "authenticated" ? "Logout" : "Join Us";
 
   const handleClick = () => {
@@ -99,7 +98,7 @@ export default function Navbar() {
 
           <motion.button
             onClick={handleClick}
-            className="relative font-medium text-base border-b-2 border-b-border"
+            className="relative font-medium text-base border-b-2 border-b-white"
             whileTap={{ scale: 0.95 }}
           >
             <FlipText text={buttonLabel} />

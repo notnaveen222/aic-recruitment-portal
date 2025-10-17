@@ -48,17 +48,21 @@ export default function Departments() {
     show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: easeOut } },
   };
   return (
-    <div className="w-screen flex z-50 flex-col pt-14 mb-10 justify-center items-center">
+    <div className="w-screen flex z-50 flex-col pt-14 mb-10  justify-center items-center">
       <OpacityAnimation delay={0.5}>
         <div className="text-4xl sm:text-5xl text-center  font-medium">
           Our Departments
         </div>
       </OpacityAnimation>
 
-      <div className="flex flex-col flex-wrap justify-center gap-y-5 w-full gap-x-8 my-0 sm:mb-14">
+      <div className="flex flex-col flex-wrap justify-center gap-y-5 w-full z-20  gap-x-8 my-0 sm:mb-14">
         <StaggerAnimation>
           {DEPT.map((dept, idx) => (
-            <motion.div key={idx} variants={childVariants}>
+            <motion.div
+              key={idx}
+              className="hover:shadow-2xl/5 sm:hover:scale-105  shadow-none transition-all duration-150 shadow-white"
+              variants={childVariants}
+            >
               <Card title={dept} desc={DEPT_DESC[dept]}>
                 <CanvasRevealEffect
                   animationSpeed={6}

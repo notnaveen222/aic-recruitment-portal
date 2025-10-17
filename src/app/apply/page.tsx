@@ -114,7 +114,6 @@ export default function ApplyPage() {
       }
     }
   };
-  const watchedValues = watch();
 
   const [confirmationVisible, setConfirmationVisible] =
     useState<boolean>(false);
@@ -122,8 +121,8 @@ export default function ApplyPage() {
     "" | "loading" | "confirmed" | "error" | "existing"
   >("");
   return (
-    <div className="mt-10 max-w-xs sm:max-w-6xl grow mb-10 w-full mx-auto border border-white/20  rounded-xl  flex ">
-      <div className="hidden sm:flex flex-col py-5 w-2xs px-2 border-r-white/20 border-r">
+    <div className="mt-20  max-w-xs sm:max-w-6xl grow mb-10 w-full mx-auto border border-white/20  rounded-xl  flex ">
+      <div className="hidden sm:flex  bg-background/40 rounded-l-xl flex-col py-5 w-2xs px-2 border-r-white/20 border-r">
         <OpacityAnimation>
           <div className="text-lg  mb-2 px-2 font-medium pb-5 ">
             Recruitment Form
@@ -185,7 +184,7 @@ export default function ApplyPage() {
           }
           void handleSubmit(onSubmit)(e);
         }}
-        className="flex flex-col w-full"
+        className="flex flex-col w-full "
       >
         {currentStep == 0 && (
           <div className="grow pt-5 flex flex-col justify-center items-center px-0 sm:pl-5">

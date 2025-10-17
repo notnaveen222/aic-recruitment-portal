@@ -1,17 +1,23 @@
-import { withAuth } from "next-auth/middleware";
-import { NextResponse } from "next/server";
+import { getToken } from "next-auth/jwt";
+import { NextResponse, NextRequest } from "next/server";
 
-export default withAuth(
-  function middleware(req) {
-    return NextResponse.next();
-  },
-  {
-    pages: {
-      signIn: "/auth/signin",
-    },
+const protectedRoutes = ["/apply"];
+const authRoutes = ["/auth/signin"];
+export default async function middleware(req: NextRequest) {
+  console.log("hello");
+  const { pathname, origin } = req.nextUrl;
+  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+  const isProtectedRoute = protectedRoutes.includes(pathname);
+  const isAuthRoute = authRoutes.includes(pathname);
+  if (isProtectedRoute && !token?.email) {
+    return NextResponse.redirect(new URL(`${origin}/auth/signin`, req.nextUrl));
   }
-);
+  if (isAuthRoute && token?.email) {
+    return NextResponse.redirect(new URL("/apply", req.nextUrl));
+  }
+  return NextResponse.next();
+}
 
 export const config = {
-  matcher: ["/((?!api|_next|auth|$).*)"],
+  matcher: ["/apply", "/auth/signin"],
 };
