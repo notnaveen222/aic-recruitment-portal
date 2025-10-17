@@ -6,30 +6,23 @@ import { OpacityAnimation } from "@/components/MotionAnimation";
 import { GridPattern } from "@/components/patter-bg";
 import { cn } from "@/lib/utils";
 import PrismaticBurst from "@/components/PrismaticBurst";
+import DarkVeil from "@/components/Backgrouds/DarkVeil";
+import { Particles } from "@/components/Backgrouds/Particles";
 
 export default function Home() {
   return (
     <>
-      <div className="grow flex flex-col items-center  overflow-x-hidden">
-        <div
-          style={{ width: "95%", height: "800px" }}
-          className="absolute rounded-2xl overflow-hidden"
-        >
-          <PrismaticBurst
-            animationType="rotate3d"
-            intensity={2}
-            speed={0.5}
-            paused={false}
-            offset={{ x: 0, y: 0 }}
-            hoverDampness={0.25}
-            rayCount={24}
-            mixBlendMode="lighten"
-          />
+      <div className="grow flex flex-col  items-center  overflow-x-hidden">
+        <div style={{ width: "100%", height: "100%" }} className="absolute z-0">
+          <DarkVeil speed={0.8} />
         </div>
-        <div className="relative flex font-medium pt-16 sm:pt-52">
+        <div className="absolute [mask-image:linear-gradient(to_bottom,transparent_5%,white_100%)] z-10 inset-x-0 h-[90vh] ">
+          <Particles />
+        </div>
+        <div className="relative flex w-full z-20 justify-center font-medium pt-16 sm:pt-52">
           <OpacityAnimation delay={0.2}>
             <svg
-              className="h-full relative left-10 lg:left-0 hidden sm:block"
+              className="opacity-0 h-full relative left-10 lg:left-0 hidden sm:block"
               xmlns="http://www.w3.org/2000/svg"
               width="70"
               height="568"
@@ -39,14 +32,14 @@ export default function Home() {
               <path
                 d="M1 0.23938V207.654L88 285.695C88 285.695 87.5 493.945 88 567.813"
                 stroke="url(#animation_gradient_left)"
-                strokeWidth="2"
+                strokeWidth="1.2"
                 opacity="1"
               ></path>
 
               <path
                 d="M1 0.23938V207.654L88 285.695C88 285.695 87.5 493.945 88 567.813"
                 stroke="url(#paint0_linear_left)"
-                strokeWidth="1.5"
+                strokeWidth="0.7"
               ></path>
 
               <defs>
@@ -100,8 +93,9 @@ export default function Home() {
               </defs>
             </svg>
           </OpacityAnimation>
-          <OpacityAnimation delay={0.2}>
-            <div className=" left-0 absolute top-4 sm:top-10 flex size-full items-center justify-center overflow-hidden z-0 opacity-30">
+          {/*grid*/}
+          {/* <OpacityAnimation delay={0.2}>
+            <div className=" left-0 absolute top-4 sm:top-10 flex size-full items-center justify-center overflow-hidden z-0 opacity-[0.7]">
               <div className="block sm:hidden">
                 <GridPattern
                   width={18}
@@ -120,12 +114,12 @@ export default function Home() {
                   x={-1}
                   y={-1}
                   className={cn(
-                    "[mask-image:radial-gradient(500px_200px_at_center,white,transparent)]"
+                    "absolute inset-0 [mask-image:radial-gradient(450px_150px_at_center,white,transparent)]"
                   )}
                 />
               </div>
             </div>
-          </OpacityAnimation>
+          </OpacityAnimation> */}
           <div className=" text-center mx-28 text-shadow-lg/80 z-10 flex flex-col pt-10 sm:pt-0">
             <HeroText />
             <OpacityAnimation delay={0.5}>
@@ -138,7 +132,7 @@ export default function Home() {
           </div>
           <OpacityAnimation delay={0.2}>
             <svg
-              className=" h-full relative right-10 lg:right-0 hidden sm:block"
+              className="opacity-0 h-full relative right-10 lg:right-0 hidden sm:block"
               xmlns="http://www.w3.org/2000/svg"
               width="70"
               height="568"
@@ -148,14 +142,14 @@ export default function Home() {
               <path
                 d="M88 0.23938V207.654L1 285.695C1 285.695 1.5 493.945 1 567.813"
                 stroke="url(#animation_gradient_right)"
-                strokeWidth="2"
+                strokeWidth="1"
                 opacity="1"
               ></path>
 
               <path
                 d="M88 0.23938V207.654L1 285.695C1 285.695 1.5 493.945 1 567.813"
                 stroke="url(#paint0_linear_right)"
-                strokeWidth="1.5"
+                strokeWidth="0.3"
               ></path>
 
               <defs>

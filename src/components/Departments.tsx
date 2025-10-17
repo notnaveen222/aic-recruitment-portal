@@ -48,9 +48,9 @@ export default function Departments() {
     show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: easeOut } },
   };
   return (
-    <div className="w-screen flex flex-col pt-14 mb-10 justify-center items-center">
+    <div className="w-screen flex z-50 flex-col pt-14 mb-10 justify-center items-center">
       <OpacityAnimation delay={0.5}>
-        <div className="text-4xl sm:text-5xl text-center font-medium">
+        <div className="text-4xl sm:text-5xl text-center  font-medium">
           Our Departments
         </div>
       </OpacityAnimation>
@@ -160,7 +160,7 @@ const DEPT_COLORS: Record<string, number[][]> = {
     [59, 130, 246],
     [125, 211, 252],
   ],
-  Creatives: [
+  Creative: [
     [236, 72, 153],
     [232, 121, 249],
   ],

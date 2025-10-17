@@ -87,7 +87,7 @@ export default function Navbar() {
   };
 
   return (
-    <div className="top-0 sticky h-14 backdrop-blur-xs z-50 w-full">
+    <div className="top-0 fixed h-14 backdrop-blur-xs z-50 w-full">
       <FadeDownAnimation delay={0.3}>
         <div className="flex items-center h-14 justify-between px-4 sm:px-24">
           <div

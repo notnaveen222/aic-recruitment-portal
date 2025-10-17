@@ -1,7 +1,7 @@
 "use client";
 
 import { OpacityAnimation } from "./MotionAnimation";
-import { motion } from "motion/react";
+import { easeOut, motion } from "motion/react";
 
 export default function HeroBadge() {
   return (
@@ -28,43 +28,43 @@ function Stars() {
       <path d="M392.05 0c-20.9 210.08-184.06 378.41-392.05 407.78 207.96 29.37 371.12 197.68 392.05 407.74 20.93-210.06 184.09-378.37 392.05-407.74-207.98-29.38-371.16-197.69-392.06-407.78z" />
     </svg>
   );
-
+  const offset = 5;
   return (
     <>
       {/* Gentle animated stars using framer motion */}
       <motion.div
-        animate={{ x: [-2, 2, -2], y: [-2, 2, -2] }}
-        transition={{
-          duration: 5,
-          repeat: Infinity,
-          repeatType: "mirror",
-          ease: "easeInOut",
+        animate={{
+          y: [0, -offset, offset, 0],
         }}
-        className="absolute top-[-80%] left-[-30%] w-[25px] opacity-100 drop-shadow-[0_0_10px_#fffdef]"
+        transition={{
+          duration: 3,
+          repeat: Infinity,
+        }}
+        className="absolute  top-[-80%] left-[-30%] w-[25px] opacity-100 drop-shadow-[0_0_10px_#fffdef]"
       >
         <StarSVG />
       </motion.div>
 
       <motion.div
-        animate={{ x: [0, 3, 0], y: [0, -3, 0] }}
-        transition={{
-          duration: 6,
-          repeat: Infinity,
-          repeatType: "mirror",
-          ease: "easeInOut",
+        animate={{
+          x: [0, -offset, offset, 0],
         }}
-        className="absolute top-[-25%] left-[10%] w-[15px] opacity-100 drop-shadow-[0_0_10px_#fffdef]"
+        transition={{
+          duration: 3,
+          repeat: Infinity,
+        }}
+        className="absolute top-[120%] left-[20%] w-[15px] opacity-100 drop-shadow-[0_0_10px_#fffdef]"
       >
         <StarSVG />
       </motion.div>
 
       <motion.div
-        animate={{ x: [0, -2, 0], y: [0, 2, 0] }}
+        animate={{
+          y: [0, offset, -offset, 0],
+        }}
         transition={{
-          duration: 4,
+          duration: 3,
           repeat: Infinity,
-          repeatType: "mirror",
-          ease: "easeInOut",
         }}
         className="absolute top-[55%] left-[25%] w-[5px] opacity-100 drop-shadow-[0_0_10px_#fffdef]"
       >
