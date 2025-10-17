@@ -5,11 +5,27 @@ import HeroText from "@/components/HeroText";
 import { OpacityAnimation } from "@/components/MotionAnimation";
 import { GridPattern } from "@/components/patter-bg";
 import { cn } from "@/lib/utils";
+import PrismaticBurst from "@/components/PrismaticBurst";
 
 export default function Home() {
   return (
     <>
       <div className="grow flex flex-col items-center  overflow-x-hidden">
+        <div
+          style={{ width: "95%", height: "800px" }}
+          className="absolute rounded-2xl overflow-hidden"
+        >
+          <PrismaticBurst
+            animationType="rotate3d"
+            intensity={2}
+            speed={0.5}
+            paused={false}
+            offset={{ x: 0, y: 0 }}
+            hoverDampness={0.25}
+            rayCount={24}
+            mixBlendMode="lighten"
+          />
+        </div>
         <div className="relative flex font-medium pt-16 sm:pt-52">
           <OpacityAnimation delay={0.2}>
             <svg

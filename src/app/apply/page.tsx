@@ -6,7 +6,7 @@ import { AnimatePresence } from "motion/react";
 import { CanvasRevealEffect } from "@/components/CanvasRevealEffect";
 import { cn } from "@/lib/utils";
 import { Check, ChevronLeft, ChevronRight } from "lucide-react";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import {
   useEffect,
@@ -96,6 +96,7 @@ export default function ApplyPage() {
     if (result.success) {
       setConfirmationStatus("confirmed");
       setTimeout(() => {
+        signOut();
         router.push("/");
         setConfirmationVisible(false);
       }, 5000);
@@ -103,6 +104,7 @@ export default function ApplyPage() {
       if (result.existingApplicaiton) {
         setConfirmationStatus("existing");
         setTimeout(() => {
+          signOut();
           router.push("/");
           setConfirmationVisible(false);
         }, 5000);

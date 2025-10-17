@@ -1,13 +1,16 @@
 "use client";
 
 import { OpacityAnimation } from "./MotionAnimation";
+import { motion } from "motion/react";
 
 export default function HeroBadge() {
   return (
     <OpacityAnimation delay={0.5}>
       <div className="relative w-fit mx-auto overflow-visible z-50 group">
-        <Stars />
-        <div className="bg-white/10 border hover:bg-transparent hover:backdrop-blur-none border-white/30 hover:border-white/70 transition-all duration-150 px-3 py-px text-sm sm:text-base rounded-full mb-3 w-fit  mx-auto flex gap-x-3 backdrop-blur-sm">
+        <OpacityAnimation delay={0.5}>
+          <Stars />
+        </OpacityAnimation>
+        <div className="bg-white/10 border hover:bg-transparent hover:backdrop-blur-xs border-white/30 hover:border-white/70 transition-all duration-150 px-3 py-px text-sm sm:text-base rounded-full mb-3 w-fit mx-auto flex gap-x-3 backdrop-blur-xs">
           Best Technical Club&apos;25 🏆
         </div>
       </div>
@@ -28,25 +31,84 @@ function Stars() {
 
   return (
     <>
-      {/* Six stars around the badge */}
-      <div className="absolute top-[20%] left-[20%] w-[25px] opacity-0 group-hover:opacity-100 group-hover:-top-[80%] group-hover:-left-[30%] transition-all duration-[1000ms] ease-[cubic-bezier(0.05,0.83,0.43,0.96)] drop-shadow-[0_0_10px_#fffdef]">
+      {/* Gentle animated stars using framer motion */}
+      <motion.div
+        animate={{ x: [-2, 2, -2], y: [-2, 2, -2] }}
+        transition={{
+          duration: 5,
+          repeat: Infinity,
+          repeatType: "mirror",
+          ease: "easeInOut",
+        }}
+        className="absolute top-[-80%] left-[-30%] w-[25px] opacity-100 drop-shadow-[0_0_10px_#fffdef]"
+      >
         <StarSVG />
-      </div>
-      <div className="absolute top-[45%] left-[45%] w-[15px] opacity-0 group-hover:opacity-100 group-hover:-top-[25%] group-hover:left-[10%] transition-all duration-[1000ms] ease-[cubic-bezier(0,0.4,0,1.01)] drop-shadow-[0_0_10px_#fffdef]">
+      </motion.div>
+
+      <motion.div
+        animate={{ x: [0, 3, 0], y: [0, -3, 0] }}
+        transition={{
+          duration: 6,
+          repeat: Infinity,
+          repeatType: "mirror",
+          ease: "easeInOut",
+        }}
+        className="absolute top-[-25%] left-[10%] w-[15px] opacity-100 drop-shadow-[0_0_10px_#fffdef]"
+      >
         <StarSVG />
-      </div>
-      <div className="absolute top-[40%] left-[40%] w-[5px] opacity-0 group-hover:opacity-100 group-hover:top-[55%] group-hover:left-[25%] transition-all duration-[1000ms] ease-[cubic-bezier(0,0.4,0,1.01)] drop-shadow-[0_0_10px_#fffdef]">
+      </motion.div>
+
+      <motion.div
+        animate={{ x: [0, -2, 0], y: [0, 2, 0] }}
+        transition={{
+          duration: 4,
+          repeat: Infinity,
+          repeatType: "mirror",
+          ease: "easeInOut",
+        }}
+        className="absolute top-[55%] left-[25%] w-[5px] opacity-100 drop-shadow-[0_0_10px_#fffdef]"
+      >
         <StarSVG />
-      </div>
-      <div className="absolute top-[20%] left-[40%] w-[8px] opacity-0 group-hover:opacity-100 group-hover:top-[30%] group-hover:left-[80%] transition-all duration-[800ms] ease-[cubic-bezier(0,0.4,0,1.01)] drop-shadow-[0_0_10px_#fffdef]">
+      </motion.div>
+
+      <motion.div
+        animate={{ x: [1, -2, 1], y: [-1, 2, -1] }}
+        transition={{
+          duration: 5.5,
+          repeat: Infinity,
+          repeatType: "mirror",
+          ease: "easeInOut",
+        }}
+        className="absolute top-[30%] left-[80%] w-[8px] opacity-100 drop-shadow-[0_0_10px_#fffdef]"
+      >
         <StarSVG />
-      </div>
-      <div className="absolute top-[25%] left-[45%] w-[15px] opacity-0 group-hover:opacity-100 group-hover:top-[25%] group-hover:left-[115%] transition-all duration-[600ms] ease-[cubic-bezier(0,0.4,0,1.01)] drop-shadow-[0_0_10px_#fffdef]">
+      </motion.div>
+
+      <motion.div
+        animate={{ x: [-2, 3, -2], y: [1, -3, 1] }}
+        transition={{
+          duration: 7,
+          repeat: Infinity,
+          repeatType: "mirror",
+          ease: "easeInOut",
+        }}
+        className="absolute top-[25%] left-[115%] w-[15px] opacity-100 drop-shadow-[0_0_10px_#fffdef]"
+      >
         <StarSVG />
-      </div>
-      <div className="absolute top-[5%] left-[50%] w-[5px] opacity-0 group-hover:opacity-100 group-hover:top-[5%] group-hover:left-[60%] transition-all duration-[800ms] ease-[ease] drop-shadow-[0_0_10px_#fffdef]">
+      </motion.div>
+
+      <motion.div
+        animate={{ x: [1, -1, 1], y: [1, -1, 1] }}
+        transition={{
+          duration: 6.5,
+          repeat: Infinity,
+          repeatType: "mirror",
+          ease: "easeInOut",
+        }}
+        className="absolute top-[5%] left-[60%] w-[5px] opacity-100 drop-shadow-[0_0_10px_#fffdef]"
+      >
         <StarSVG />
-      </div>
+      </motion.div>
     </>
   );
 }

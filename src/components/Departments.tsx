@@ -55,7 +55,7 @@ export default function Departments() {
         </div>
       </OpacityAnimation>
 
-      <div className="flex flex-col flex-wrap justify-center gap-y-5 w-full gap-x-8 my-0 sm:my-14">
+      <div className="flex flex-col flex-wrap justify-center gap-y-5 w-full gap-x-8 my-0 sm:mb-14">
         <StaggerAnimation>
           {DEPT.map((dept, idx) => (
             <motion.div key={idx} variants={childVariants}>
