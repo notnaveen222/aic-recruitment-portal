@@ -83,6 +83,88 @@ export default function ApplyPage() {
     if (session?.user?.email) setValue("email", session.user.email);
   }, [session?.user?.email, setValue]);
 
+  // Step validation functions
+  const isStep1Valid = () => {
+    const values = watch();
+    return !!(
+      values.name?.trim() &&
+      values.registrationNumber?.trim() &&
+      values.phone?.trim() &&
+      values.email?.trim() &&
+      !errors.name &&
+      !errors.registrationNumber &&
+      !errors.phone
+    );
+  };
+
+  const isStep2Valid = () => {
+    const values = watch();
+    return !!(
+      values.firstPreference &&
+      values.secondPreference &&
+      !errors.firstPreference &&
+      !errors.secondPreference
+    );
+  };
+
+  const isStep3Valid = () => {
+    const values = watch();
+    const pref1 = values.firstPreference;
+    const pref2 = values.secondPreference;
+    const needsLink =
+      pref1 === "Technical" ||
+      pref1 === "Creative" ||
+      pref2 === "Technical" ||
+      pref2 === "Creative";
+
+    return !!(
+      values.whyJoinClub?.trim() &&
+      values.firstPreferenceReason?.trim() &&
+      values.secondPreferenceReason?.trim() &&
+      (!needsLink || (values.workLink?.trim() && !errors.workLink)) &&
+      !errors.whyJoinClub &&
+      !errors.firstPreferenceReason &&
+      !errors.secondPreferenceReason &&
+      (!needsLink || !errors.workLink)
+    );
+  };
+
+  const canProceedToNext = () => {
+    switch (currentStep) {
+      case 0:
+        return isStep1Valid();
+      case 1:
+        return isStep2Valid();
+      case 2:
+        return isStep3Valid();
+      case 3:
+        return isValid;
+      default:
+        return false;
+    }
+  };
+
+  const canNavigateToStep = (targetStep: number) => {
+    // Can always go back to previous steps
+    if (targetStep <= currentStep) return true;
+
+    // For forward navigation, check if all previous steps are valid
+    for (let i = 0; i < targetStep; i++) {
+      switch (i) {
+        case 0:
+          if (!isStep1Valid()) return false;
+          break;
+        case 1:
+          if (!isStep2Valid()) return false;
+          break;
+        case 2:
+          if (!isStep3Valid()) return false;
+          break;
+      }
+    }
+    return true;
+  };
+
   const onSubmit = async (values: FormValues) => {
     setConfirmationVisible(true);
     setConfirmationStatus("loading");
@@ -120,6 +202,16 @@ export default function ApplyPage() {
   const [confirmationStatus, setConfirmationStatus] = useState<
     "" | "loading" | "confirmed" | "error" | "existing"
   >("");
+  const [showValidationError, setShowValidationError] =
+    useState<boolean>(false);
+
+  // Reset validation error when user makes changes
+  useEffect(() => {
+    if (showValidationError && canProceedToNext()) {
+      setShowValidationError(false);
+    }
+  }, [watch(), showValidationError]);
+
   return (
     <div className="mt-20  max-w-xs sm:max-w-6xl grow mb-10 w-full mx-auto border border-white/20  rounded-xl  flex ">
       <div className="hidden sm:flex  bg-background/40 rounded-l-xl flex-col py-5 w-2xs px-2 border-r-white/20 border-r">
@@ -136,12 +228,21 @@ export default function ApplyPage() {
                   type="button"
                   onClick={(e) => {
                     e.preventDefault();
-                    setCurrentStep(index);
+                    // Only allow navigation to current step or previously completed steps
+                    if (index <= currentStep || canNavigateToStep(index)) {
+                      setCurrentStep(index);
+                      setShowValidationError(false); // Hide validation error when navigating
+                    }
                   }}
+                  disabled={index > currentStep && !canNavigateToStep(index)}
                   className={cn(
-                    "group flex w-full items-center gap-3 cursor-none rounded-lg border border-transparent px-3 py-2.5 text-left transition",
-                    index === currentStep && "border-border bg-neutral-400/10",
-                    index !== currentStep && "hover:bg-neutral-400/10"
+                    "group flex w-full items-center gap-3 rounded-lg border border-transparent px-3 py-2.5 text-left transition",
+                    index === currentStep &&
+                      "border-border bg-neutral-400/10 cursor-none",
+                    index !== currentStep && "hover:bg-neutral-400/10",
+                    index > currentStep && !canNavigateToStep(index)
+                      ? " opacity-50"
+                      : "cursor-none"
                   )}
                 >
                   <span
@@ -448,10 +549,38 @@ export default function ApplyPage() {
                               pref1 === "Creative" ||
                               pref2 === "Technical" ||
                               pref2 === "Creative";
+
                             if (needsLink) {
-                              return v && v.trim().length > 0
-                                ? true
-                                : "Link required";
+                              if (!v || v.trim().length === 0) {
+                                return "Link required";
+                              }
+                              // URL validation
+                              try {
+                                const url = new URL(v.trim());
+                                // Check if it's a valid protocol
+                                if (
+                                  !["http:", "https:"].includes(url.protocol)
+                                ) {
+                                  return "Invalid URL - must start with http:// or https://";
+                                }
+                                return true;
+                              } catch {
+                                return "Invalid URL";
+                              }
+                            }
+                            // If not required, still validate format if provided
+                            if (v && v.trim().length > 0) {
+                              try {
+                                const url = new URL(v.trim());
+                                if (
+                                  !["http:", "https:"].includes(url.protocol)
+                                ) {
+                                  return "Invalid URL - must start with http:// or https://";
+                                }
+                                return true;
+                              } catch {
+                                return "Invalid URL";
+                              }
                             }
                             return true;
                           },
@@ -522,6 +651,21 @@ export default function ApplyPage() {
           </div>
         )}
 
+        {/* Validation message - only show when user tries to proceed */}
+        {showValidationError && !canProceedToNext() && (
+          <div className="w-full px-10 mt-2">
+            <div className="text-red-500 text-sm text-center bg-red-500/10 border border-red-500/20 rounded-md p-3">
+              {currentStep === 0 &&
+                "Please fill in all required personal information"}
+              {currentStep === 1 && "Please select both department preferences"}
+              {currentStep === 2 &&
+                "Please fill in all required fields and provide a valid work link if applying for Technical/Creative departments"}
+              {currentStep === 3 &&
+                "Please review and complete all required fields"}
+            </div>
+          </div>
+        )}
+
         <div className="w-full mt-5 px-10 ">
           <div className="w-full flex border-t border-t-border justify-between py-5 h-fit">
             <button
@@ -544,20 +688,22 @@ export default function ApplyPage() {
             </button>
             <button
               type={currentStep === 3 ? "submit" : "button"}
-              disabled={currentStep === 3 && !isValid}
               onClick={(e) => {
                 if (currentStep !== 3) {
                   e.preventDefault();
                   e.stopPropagation();
-                  setCurrentStep((s) => Math.min(s + 1, 3));
+                  if (canProceedToNext()) {
+                    setCurrentStep((s) => Math.min(s + 1, 3));
+                    setShowValidationError(false); // Hide error when successfully proceeding
+                  } else {
+                    setShowValidationError(true); // Show error when validation fails
+                  }
                 }
               }}
               className={cn(
                 "inline-flex cursor-none items-center gap-2 rounded-md px-3 py-2 text-sm transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60",
                 currentStep === 3
-                  ? isValid
-                    ? "neon-button "
-                    : "border border-neutral-200 text-neutral-200 cursor-not-allowed opacity-50"
+                  ? "neon-button"
                   : "bg-foreground text-background hover:bg-foreground/90"
               )}
             >

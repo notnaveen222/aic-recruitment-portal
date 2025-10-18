@@ -119,10 +119,20 @@ const applicantSchema = new mongoose.Schema(
             }
             return true;
           }
-          return true;
+
+          // URL format validation
+          try {
+            const url = new URL(v);
+            if (!["http:", "https:"].includes(url.protocol)) {
+              return false;
+            }
+            return true;
+          } catch {
+            return false;
+          }
         },
         message:
-          "GitHub or website link is mandatory for Technical and Creative departments.",
+          "GitHub or website link is mandatory for Technical and Creative departments and must be a valid URL (http:// or https://).",
       },
     },
     status: {
