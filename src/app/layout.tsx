@@ -12,7 +12,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "AIC Recruitments '25",
-  description: "Recruitment Portal for the AIC Club, VIT Chennai",
+  description: "Recruitment Portal for the AIC Club of VIT Chennai",
   openGraph: {
     title: "AIC Recruitments '25",
     description: "Recruitment Portal for the AIC Club, VIT Chennai",
