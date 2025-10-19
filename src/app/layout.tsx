@@ -11,8 +11,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "AIC Recruitment Portal",
-  description: "Recruitment portal for AIC Club, VIT Chennai",
+  title: "AIC Recruitments '25",
+  description: "Recruitment Portal for the AIC Club, VIT Chennai",
 };
 
 export default function RootLayout({
