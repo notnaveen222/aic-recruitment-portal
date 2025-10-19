@@ -13,6 +13,12 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "AIC Recruitments '25",
   description: "Recruitment Portal for the AIC Club, VIT Chennai",
+  openGraph: {
+    title: "AIC Recruitment Portal",
+    description: "Recruitment portal for AIC Club, VIT Chennai",
+    url: "https://recruitments.aiclubvitc.in",
+    images: ["/og-image.png"],
+  },
 };
 
 export default function RootLayout({

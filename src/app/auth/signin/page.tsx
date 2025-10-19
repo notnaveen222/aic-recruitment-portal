@@ -4,6 +4,7 @@ import LoginButton from "@/components/Buttons";
 import { OpacityAnimation } from "@/components/MotionAnimation";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import Link from "next/link";
 
 export default function SignIn() {
   const [signInError, setSignInError] = useState<string>("");
@@ -42,9 +43,12 @@ export default function SignIn() {
           <LoginButton setSignInError={setSignInError} />
           <div className=" text-center max-w-2xs text-sm">
             Incase of any issues, Kindly contact{" "}
-            <span className="underline underline-offset-2">
+            <Link
+              href="mailto:help@aiclubvitc.in"
+              className="underline underline-offset-2"
+            >
               help@aiclubvitc.in
-            </span>
+            </Link>
             .
           </div>
         </div>
