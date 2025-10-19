@@ -15,7 +15,7 @@ export default function ApplicationConfirm({
         )}
         {status == "confirmed" && (
           <div className="">
-            Your Application Submitted Successfully! We&apos;ll get back to you
+            Your application has been submitted successfully! We&apos;ll get back to you
             soon!
           </div>
         )}{" "}
@@ -27,7 +27,8 @@ export default function ApplicationConfirm({
         )}
         {status == "error" && (
           <div className="">
-            There was an error submitting your response, Please Try Again Later
+            There was an error submitting your response, Please Try Again Later 
+            or contact help@aiclubvitc.in
           </div>
         )}
       </div>
