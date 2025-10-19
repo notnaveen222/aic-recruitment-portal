@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { FadeDownAnimation } from "./MotionAnimation";
+import Image from "next/image";
 
 const DURATION = 0.25;
 const STAGGER = 0.025;
@@ -90,9 +91,16 @@ export default function Navbar() {
       <FadeDownAnimation delay={0.3}>
         <div className="flex items-center h-14 justify-between px-4 sm:px-24">
           <div
-            className="font-medium text-base cursor-pointer"
+            className="font-medium flex gap-x-4 items-center text-base cursor-none"
             onClick={() => router.push("/")}
           >
+            <Image
+              className="size-9 "
+              src={"/aic-logo.png"}
+              alt="aic logo"
+              height={1249}
+              width={1260}
+            />
             <FlipText text="Artificial Intelligence Club" zeroDelay />
           </div>
 

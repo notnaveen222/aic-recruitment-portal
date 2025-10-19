@@ -179,7 +179,6 @@ export default function ApplyPage() {
       setConfirmationStatus("confirmed");
       setTimeout(() => {
         signOut({ callbackUrl: "/" });
-
         setConfirmationVisible(false);
       }, 5000);
     } else {
@@ -187,7 +186,6 @@ export default function ApplyPage() {
         setConfirmationStatus("existing");
         setTimeout(() => {
           signOut({ callbackUrl: "/" });
-
           setConfirmationVisible(false);
         }, 5000);
       } else {
@@ -205,7 +203,6 @@ export default function ApplyPage() {
   const [showValidationError, setShowValidationError] =
     useState<boolean>(false);
 
-  // Reset validation error when user makes changes
   useEffect(() => {
     if (showValidationError && canProceedToNext()) {
       setShowValidationError(false);

@@ -42,7 +42,10 @@ export default function SignIn() {
           <LoginButton setSignInError={setSignInError} />
           <div className=" text-center max-w-2xs text-sm">
             Incase of any issues, Kindly contact{" "}
-            <span className="underline underline-offset-2">aic@gmail.com</span>.
+            <span className="underline underline-offset-2">
+              help@aiclubvitc.in
+            </span>
+            .
           </div>
         </div>
       </OpacityAnimation>
