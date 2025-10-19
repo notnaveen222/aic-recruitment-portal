@@ -14,10 +14,26 @@ export const metadata: Metadata = {
   title: "AIC Recruitments '25",
   description: "Recruitment Portal for the AIC Club, VIT Chennai",
   openGraph: {
-    title: "AIC Recruitment Portal",
-    description: "Recruitment portal for AIC Club, VIT Chennai",
-    url: "https://recruitments.aiclubvitc.in",
-    images: ["/og-image.png"],
+    title: "AIC Recruitments '25",
+    description: "Recruitment Portal for the AIC Club, VIT Chennai",
+    url: "https://recruitments.aiclubvitc.in/",
+    siteName: "AIC Recruitments '25",
+    images: [
+      {
+        url: "https://recruitments.aiclubvitc.in/og-image.png", // full absolute path!
+        width: 1200,
+        height: 630,
+        alt: "AIC Recruitment Portal",
+      },
+    ],
+    locale: "en_IN",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "AIC Recruitments '25",
+    description: "Recruitment Portal for the AIC Club, VIT Chennai",
+    images: ["https://recruitments.aiclubvitc.in/og-image.png"],
   },
 };
 
